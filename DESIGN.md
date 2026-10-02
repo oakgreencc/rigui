@@ -309,7 +309,8 @@ The Attention receipt: a Signal Tint bar that wipes in (clip-path, 320ms), state
 - **Shadow layer:** tinted per the Tinted Shadow Rule; a Brick body shows through at full tone. Hover or focus lifts a shadow body to a solid Signal Green Lit stroke, inviting the swap.
 - **Orbit swap:** clicking a shadow body exchanges which layer is lit: positions and box sizes travel on 480ms ease-out, opacity on 320ms. Reduced motion makes it instant.
 - **Flows:** handoff edges in Muted with arrowheads; Signal Green Lit dots travel them linearly (1.8s). The stalled body throws a Brick alarm ring (2.4s).
-- **Backdrop:** the OGCC mark at 150% of the short side in Shadow Orbit (32% opacity; 45% in Daylight), rotating linearly once per 40s. Loops pause when the tab is hidden.
+- **Backdrop:** the theme's mark (`--mark`, OGCC by default) centred on its pane in both axes at 130% of the pane's short side, in Shadow Orbit at `--backdrop-opacity` (20%; 22% in Daylight), rotating linearly once per `--backdrop-period` (40s). One `Backdrop` component serves the map and the Backlog ring. Loops pause when the tab is hidden.
+- **Brand mark:** a theme token, not a component constant. `--mark` holds a `url()` drawn as a CSS mask in currentColor, so a preset or `/theme.json` swaps the logo in the sidebar, the sun and the backdrop at once. The sidebar mark sits at 20px and the sun at 52px (72px on phones): present, not leading.
 - **Sun:** the OGCC mark in Signal Green at centre, "YOU" in the wordmark style, a waiting count beneath; turns Lavender when something is addressed to you.
 
 ## Do's and Don'ts

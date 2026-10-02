@@ -2,6 +2,7 @@ import { useEffect, useMemo, useState } from "react";
 import { useFindings, useHealth, useHosts, useSource, useWatchdogs } from "../api/hooks";
 import { ACTIONS } from "../api/actions";
 import type { WatchdogJob } from "../api/types";
+import { Mark } from "../components/Icon";
 import { Chip, Cmd, Empty, Facts, Lamp, QueryState, Segmented, useToast } from "../components/primitives";
 import { age, clock, interval, shortSession } from "../lib/format";
 import { navigate, useRoute } from "../lib/router";
@@ -228,13 +229,15 @@ function ThemeTab() {
         <div className="tokens">
           {Object.keys(TOKEN_DOCS).map((k) => {
             const v = (t.overrides as Tokens)[k as `--${string}`] ?? base[k as `--${string}`] ?? "";
-            const color = !k.includes("font") && !k.includes("mono");
+            const kind = k === "--mark" ? "mark" : k.startsWith("--backdrop") ? "value" : k.includes("font") || k.includes("mono") ? "type" : "color";
             return (
               <button key={k} type="button" className="tok-row" title="Add to overrides" onClick={() => {
                 const cur = (() => { try { return JSON.parse(draft || "{}"); } catch { return {}; } })();
                 setDraft(JSON.stringify({ ...cur, [k]: v }, null, 2));
               }}>
-                {color ? <span className="swatch" style={{ background: `var(${k})` }} /> : <span className="swatch type">Aa</span>}
+                {kind === "color" ? <span className="swatch" style={{ background: `var(${k})` }} />
+                  : kind === "mark" ? <span className="swatch"><Mark className="swatch-mark" /></span>
+                  : <span className={kind === "type" ? "swatch type" : "swatch type val"}>{kind === "type" ? "Aa" : v}</span>}
                 <span className="tok-k mono">{k}</span><span className="tok-d">{TOKEN_DOCS[k]}</span>
               </button>
             );

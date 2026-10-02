@@ -7,7 +7,8 @@ export type Mode = "system" | "dark" | "light";
  * /theme.json, served beside the build (or the daemon's static dir), lets an adopter rebrand without a rebuild:
  *   { "default": "acme", "presets": [{ "id": "acme", "label": "Acme", "extends": "ogcc",
  *       "dark": { "--accent-fill": "#e4572e" }, "light": { ... } }] }
- * Missing tokens fall back to the preset it extends, then to OGCC.
+ * Missing tokens fall back to the preset it extends, then to OGCC. The brand mark is a token too:
+ *   "--mark": "url(/acme-mark.svg)" swaps the logo everywhere; "--backdrop-opacity": "0" drops the turning backdrop.
  */
 interface ThemeFile { default?: string; presets?: (Partial<Preset> & { id: string; extends?: string })[] }
 

@@ -1,5 +1,5 @@
 import { useLayoutEffect, useMemo, useRef, useState, type ReactNode } from "react";
-import { Mark } from "../components/Icon";
+import { Backdrop, Mark } from "../components/Icon";
 import { arcBetween, bowPath, boxEdge, R, trimFor } from "./geometry";
 import { SUN_ID, type Body, type Layer, type Scene } from "./scene";
 
@@ -64,7 +64,7 @@ export function Orrery({ scene, narrow, selected, youCount, onPick, onSun, toolt
 
   return (
     <div className="orrery" ref={wrap} data-narrow={narrow || undefined} data-lit={scene.lit}>
-      <Mark className="orrery-backdrop" />
+      <Backdrop />
       <svg viewBox={`${-pad} ${-pad} ${pad * 2} ${pad * 2}`} role="group" aria-label={`${scene.lit === "rig" ? "Rig" : "Mission"} map`}>
         <circle className="orbit" r={R.station} />
         {scene.lit === "rig" && <circle className="orbit faint" r={R.satellite} />}
@@ -90,17 +90,11 @@ export function Orrery({ scene, narrow, selected, youCount, onPick, onSun, toolt
         <g className="sun" role="button" tabIndex={0} aria-label={youCount ? `You: ${youCount} waiting on you. Open Attention.` : "You: nothing waiting. Open Attention."}
           data-tone={sunTone} onClick={onSun} onKeyDown={(e) => { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); onSun(); } }}>
           <circle className="sun-hit" r={narrow ? 80 : 58} />
-          <svg x={narrow ? -46 : -34} y={narrow ? -62 : -46} width={narrow ? 92 : 68} height={narrow ? 92 : 68} viewBox="0 0 500 500" className="sun-mark">
-            <g fill="none" stroke="currentColor" strokeWidth="35" strokeLinecap="round" strokeLinejoin="round">
-              <circle cx="250" cy="250" r="230" />
-              <path d="M 430,250 A 180,180 0 0 1 262.00767,429.59904 180,180 0 0 1 71.602046,273.96184 180,180 0 0 1 214.19073,73.597912 180,180 0 0 1 423.62033,202.50285" />
-              <line x1="330" y1="250" x2="430" y2="250" />
-              <path d="M 370.1607,299.61256 A 130,130 0 0 1 224.15443,377.40489 130,130 0 0 1 120.00495,248.86555 130,130 0 0 1 226.38189,122.16344 130,130 0 0 1 371.00826,202.49209" />
-              <path d="M 314.41635,297.43979 A 80,80 0 0 1 225.0331,326.0043 80,80 0 0 1 170,250 a 80,80 0 0 1 55.03311,-76.0043 80,80 0 0 1 89.38324,28.56451" />
-            </g>
-          </svg>
-          <text className="sun-name" y={narrow ? 52 : 38}>you</text>
-          <text className="sun-sub" y={narrow ? 80 : 56}>{youCount ? `${youCount} waiting` : "all clear"}</text>
+          <foreignObject x={narrow ? -36 : -26} y={narrow ? -50 : -38} width={narrow ? 72 : 52} height={narrow ? 72 : 52}>
+            <Mark className="sun-mark" />
+          </foreignObject>
+          <text className="sun-name" y={narrow ? 44 : 32}>you</text>
+          <text className="sun-sub" y={narrow ? 72 : 50}>{youCount ? `${youCount} waiting` : "all clear"}</text>
         </g>
 
         {layers.map((layer) => (

@@ -37,6 +37,8 @@ td .lamp { transform: translateY(-1px); margin-right: 4px; }
 .tok-row:hover { background: var(--surface-2); }
 .swatch { width: 22px; height: 22px; border: 1px solid var(--line-strong); display: inline-flex; align-items: center; justify-content: center; }
 .swatch.type { font-size: 11px; font-weight: 700; color: var(--fg); background: var(--surface); }
+.swatch.val { font-size: 9.5px; font-weight: 600; }
+.swatch-mark { width: 14px; color: var(--accent-fill); }
 .tok-k { color: var(--fg); overflow: hidden; text-overflow: ellipsis; }
 .tok-d { color: var(--md); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
 

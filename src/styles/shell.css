@@ -8,8 +8,8 @@
 .side-top { padding: 0 16px; border-bottom: 1px solid var(--line); }
 .brand-row { display: flex; align-items: center; justify-content: space-between; }
 .side-close { display: none; }
-.brand { display: flex; align-items: center; gap: 11px; height: 58px; color: var(--fg); text-decoration: none; }
-.brand .mark { width: 26px; height: 26px; flex: none; color: var(--accent-fill); }
+.brand { display: flex; align-items: center; gap: 10px; height: 58px; color: var(--fg); text-decoration: none; }
+.brand .mark { width: 20px; height: 20px; flex: none; color: var(--accent-fill); }
 /* The OGCC wordmark: light weight, wide tracking, uppercase. */
 .brand b { font-weight: 300; font-size: 15px; letter-spacing: 0.25em; text-transform: uppercase; color: var(--fg); }
 

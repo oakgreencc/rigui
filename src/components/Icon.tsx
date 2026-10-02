@@ -32,17 +32,12 @@ export function Icon({ name, className, title }: { name: IconName; className?: s
   );
 }
 
-/** The OGCC mark: an outer ring and three broken arcs. Drawn in currentColor. */
-export function Mark({ className, spin }: { className?: string; spin?: boolean }) {
-  return (
-    <svg className={className} viewBox="0 0 500 500" aria-hidden="true" data-spin={spin || undefined}>
-      <g fill="none" stroke="currentColor" strokeWidth="35" strokeLinecap="round" strokeLinejoin="round">
-        <circle cx="250" cy="250" r="230" />
-        <path d="M 430,250 A 180,180 0 0 1 262.00767,429.59904 180,180 0 0 1 71.602046,273.96184 180,180 0 0 1 214.19073,73.597912 180,180 0 0 1 423.62033,202.50285" />
-        <line x1="330" y1="250" x2="430" y2="250" />
-        <path d="M 370.1607,299.61256 A 130,130 0 0 1 224.15443,377.40489 130,130 0 0 1 120.00495,248.86555 130,130 0 0 1 226.38189,122.16344 130,130 0 0 1 371.00826,202.49209" />
-        <path d="M 314.41635,297.43979 A 80,80 0 0 1 225.0331,326.0043 80,80 0 0 1 170,250 a 80,80 0 0 1 55.03311,-76.0043 80,80 0 0 1 89.38324,28.56451" />
-      </g>
-    </svg>
-  );
+/** The theme's brand mark (OGCC's concentric rings by default), painted in currentColor through the --mark mask. */
+export function Mark({ className }: { className?: string }) {
+  return <span className={className ? `brand-mark ${className}` : "brand-mark"} aria-hidden="true" />;
+}
+
+/** The mark turning in shadow behind a map, centred on the pane. Size, strength and speed come from the theme. */
+export function Backdrop() {
+  return <div className="backdrop" aria-hidden="true"><Mark /></div>;
 }

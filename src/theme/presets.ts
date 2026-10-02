@@ -2,6 +2,10 @@
 // adopters add or override presets through /theme.json or the Theme panel (see ThemeProvider).
 // OGCC values come from oakgreen.cc's design system (oklch ramps in website/.impeccable/design.json).
 
+/** The OGCC concentric-ring mark. Drawn as a mask, so only its shape matters; the console paints it from tokens. */
+const OGCC_MARK_SVG = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 500 500"><g fill="none" stroke="#000" stroke-width="35" stroke-linecap="round" stroke-linejoin="round"><circle cx="250" cy="250" r="230"/><path d="M430,250A180,180 0 0 1 262.00767,429.59904 180,180 0 0 1 71.602046,273.96184 180,180 0 0 1 214.19073,73.597912 180,180 0 0 1 423.62033,202.50285"/><line x1="330" y1="250" x2="430" y2="250"/><path d="M370.1607,299.61256A130,130 0 0 1 224.15443,377.40489 130,130 0 0 1 120.00495,248.86555 130,130 0 0 1 226.38189,122.16344 130,130 0 0 1 371.00826,202.49209"/><path d="M314.41635,297.43979A80,80 0 0 1 225.0331,326.0043 80,80 0 0 1 170,250a80,80 0 0 1 55.03311,-76.0043 80,80 0 0 1 89.38324,28.56451"/></g></svg>`;
+export const OGCC_MARK = `url("data:image/svg+xml,${encodeURIComponent(OGCC_MARK_SVG)}")`;
+
 export type Tokens = Record<`--${string}`, string>;
 export interface Preset { id: string; label: string; dark: Tokens; light: Tokens }
 
@@ -28,6 +32,10 @@ export const TOKEN_DOCS: Record<string, string> = {
   "--bone": "Neutral marks on the map",
   "--focus": "Keyboard focus ring",
   "--terminal-bg": "Terminal previews ground", "--terminal-fg": "Terminal previews text", "--terminal-accent": "Keys, prompts and highlights in terminal text",
+  "--mark": "Brand mark as url(); a square SVG or PNG, used as a mask (sidebar, sun, backdrop)",
+  "--backdrop-opacity": "Strength of the turning mark behind the map and ring; 0 hides it",
+  "--backdrop-scale": "Backdrop size as a multiple of the pane's short side",
+  "--backdrop-period": "Time for one backdrop turn",
   "--font": "UI face", "--mono": "Ids, commands, terminal text",
 };
 
@@ -56,6 +64,7 @@ export const OGCC: Preset = {
     "--bone": "oklch(85% 0.02 85)",
     "--focus": "oklch(73% 0.115 150)",
     "--terminal-bg": "oklch(15% 0.03 152)", "--terminal-fg": "oklch(85% 0.03 152)", "--terminal-accent": "oklch(73% 0.115 150)",
+    "--mark": OGCC_MARK, "--backdrop-opacity": ".2", "--backdrop-scale": "1.3", "--backdrop-period": "40s",
     "--font": "system-ui, -apple-system, BlinkMacSystemFont, \"Segoe UI\", sans-serif",
     "--mono": "ui-monospace, SFMono-Regular, Menlo, monospace",
   },
@@ -81,6 +90,7 @@ export const OGCC: Preset = {
     "--bone": "oklch(50% 0.02 85)",
     "--focus": "oklch(45% 0.115 150)",
     "--terminal-bg": "oklch(19.5% 0.03 152)", "--terminal-fg": "oklch(85% 0.03 152)", "--terminal-accent": "oklch(76% 0.11 150)",
+    "--mark": OGCC_MARK, "--backdrop-opacity": ".22", "--backdrop-scale": "1.3", "--backdrop-period": "40s",
     "--font": "system-ui, -apple-system, BlinkMacSystemFont, \"Segoe UI\", sans-serif",
     "--mono": "ui-monospace, SFMono-Regular, Menlo, monospace",
   },

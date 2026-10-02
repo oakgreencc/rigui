@@ -2,7 +2,7 @@ import { useMemo, useState } from "react";
 import { useQueue, useRates } from "../api/hooks";
 import type { QueueItem, QueueRates } from "../api/types";
 import { Empty, Lamp, QueryState, Segmented } from "../components/primitives";
-import { Icon, Mark } from "../components/Icon";
+import { Backdrop, Icon } from "../components/Icon";
 import { age, isHuman, minutesSince, shortSession } from "../lib/format";
 import type { Tone } from "../lib/status";
 import "./backlog.css";
@@ -141,7 +141,7 @@ function Ring({ segs, total, pick, hover, onPick, onHover }: {
   };
   return (
     <div className="ring-wrap">
-      <Mark className="bl-backdrop" />
+      <Backdrop />
       <svg viewBox="-470 -400 940 800" role="group" aria-label="Open queue items by state">
         {arcs.map((s) => {
           const mid = (s.a1 + s.a2) / 2;
