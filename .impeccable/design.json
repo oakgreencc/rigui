@@ -1,0 +1,202 @@
+{
+  "schemaVersion": 2,
+  "generatedAt": "2026-09-30T00:00:00Z",
+  "title": "Design System: OpenRig Console",
+  "extensions": {
+    "colorMeta": {
+      "void-green": { "role": "neutral", "displayName": "Void Green", "canonical": "oklch(19.5% 0.03 152)", "cssVar": "--bg", "tonalRamp": ["oklch(15% 0.03 152)", "oklch(26% 0.03 152)", "oklch(38% 0.03 152)", "oklch(49% 0.03 152)", "oklch(61% 0.03 152)", "oklch(72% 0.03 152)", "oklch(84% 0.03 152)", "oklch(95% 0.03 152)"] },
+      "panel-green": { "role": "neutral", "displayName": "Panel Green", "canonical": "oklch(22% 0.033 152)", "cssVar": "--surface", "tonalRamp": ["oklch(15% 0.033 152)", "oklch(26% 0.033 152)", "oklch(38% 0.033 152)", "oklch(49% 0.033 152)", "oklch(61% 0.033 152)", "oklch(72% 0.033 152)", "oklch(84% 0.033 152)", "oklch(95% 0.033 152)"] },
+      "well-green": { "role": "neutral", "displayName": "Well Green", "canonical": "oklch(25.5% 0.038 151)", "cssVar": "--surface-2", "tonalRamp": ["oklch(15% 0.038 151)", "oklch(26% 0.038 151)", "oklch(38% 0.038 151)", "oklch(49% 0.038 151)", "oklch(61% 0.038 151)", "oklch(72% 0.038 151)", "oklch(84% 0.038 151)", "oklch(95% 0.038 151)"] },
+      "shadow-orbit": { "role": "neutral", "displayName": "Shadow Orbit", "canonical": "oklch(31% 0.06 150)", "cssVar": "--shadow", "tonalRamp": ["oklch(15% 0.06 150)", "oklch(26% 0.06 150)", "oklch(38% 0.06 150)", "oklch(49% 0.06 150)", "oklch(61% 0.06 150)", "oklch(72% 0.06 150)", "oklch(84% 0.06 150)", "oklch(95% 0.06 150)"] },
+      "hairline": { "role": "neutral", "displayName": "Hairline", "canonical": "oklch(29% 0.035 152)", "cssVar": "--line", "tonalRamp": ["oklch(15% 0.035 152)", "oklch(26% 0.035 152)", "oklch(38% 0.035 152)", "oklch(49% 0.035 152)", "oklch(61% 0.035 152)", "oklch(72% 0.035 152)", "oklch(84% 0.035 152)", "oklch(95% 0.035 152)"] },
+      "hairline-strong": { "role": "neutral", "displayName": "Hairline Strong", "canonical": "oklch(38% 0.04 152)", "cssVar": "--line-strong", "tonalRamp": ["oklch(15% 0.04 152)", "oklch(26% 0.04 152)", "oklch(38% 0.04 152)", "oklch(49% 0.04 152)", "oklch(61% 0.04 152)", "oklch(72% 0.04 152)", "oklch(84% 0.04 152)", "oklch(95% 0.04 152)"] },
+      "moonlight": { "role": "neutral", "displayName": "Moonlight", "canonical": "oklch(95% 0.015 150)", "cssVar": "--fg", "tonalRamp": ["oklch(15% 0.015 150)", "oklch(26% 0.015 150)", "oklch(38% 0.015 150)", "oklch(49% 0.015 150)", "oklch(61% 0.015 150)", "oklch(72% 0.015 150)", "oklch(84% 0.015 150)", "oklch(95% 0.015 150)"] },
+      "body-text": { "role": "neutral", "displayName": "Body Text", "canonical": "oklch(86% 0.02 150)", "cssVar": "--body", "tonalRamp": ["oklch(15% 0.02 150)", "oklch(26% 0.02 150)", "oklch(38% 0.02 150)", "oklch(49% 0.02 150)", "oklch(61% 0.02 150)", "oklch(72% 0.02 150)", "oklch(84% 0.02 150)", "oklch(95% 0.02 150)"] },
+      "muted-text": { "role": "neutral", "displayName": "Muted Text", "canonical": "oklch(70% 0.03 152)", "cssVar": "--md", "tonalRamp": ["oklch(15% 0.03 152)", "oklch(26% 0.03 152)", "oklch(38% 0.03 152)", "oklch(49% 0.03 152)", "oklch(61% 0.03 152)", "oklch(72% 0.03 152)", "oklch(84% 0.03 152)", "oklch(95% 0.03 152)"] },
+      "signal-green": { "role": "primary", "displayName": "Signal Green", "canonical": "oklch(58.5% 0.115 150)", "cssVar": "--accent-fill", "tonalRamp": ["oklch(15% 0.115 150)", "oklch(26% 0.115 150)", "oklch(38% 0.115 150)", "oklch(49% 0.115 150)", "oklch(61% 0.115 150)", "oklch(72% 0.115 150)", "oklch(84% 0.115 150)", "oklch(95% 0.115 150)"] },
+      "signal-green-lit": { "role": "primary", "displayName": "Signal Green, Lit", "canonical": "oklch(73% 0.115 150)", "cssVar": "--accent", "tonalRamp": ["oklch(15% 0.115 150)", "oklch(26% 0.115 150)", "oklch(38% 0.115 150)", "oklch(49% 0.115 150)", "oklch(61% 0.115 150)", "oklch(72% 0.115 150)", "oklch(84% 0.115 150)", "oklch(95% 0.115 150)"] },
+      "on-signal": { "role": "primary", "displayName": "On Signal", "canonical": "oklch(15% 0.03 152)", "cssVar": "--on-accent", "tonalRamp": ["oklch(15% 0.03 152)", "oklch(26% 0.03 152)", "oklch(38% 0.03 152)", "oklch(49% 0.03 152)", "oklch(61% 0.03 152)", "oklch(72% 0.03 152)", "oklch(84% 0.03 152)", "oklch(95% 0.03 152)"] },
+      "signal-tint": { "role": "primary", "displayName": "Signal Tint", "canonical": "oklch(27% 0.06 150)", "cssVar": "--accent-tint", "tonalRamp": ["oklch(15% 0.06 150)", "oklch(26% 0.06 150)", "oklch(38% 0.06 150)", "oklch(49% 0.06 150)", "oklch(61% 0.06 150)", "oklch(72% 0.06 150)", "oklch(84% 0.06 150)", "oklch(95% 0.06 150)"] },
+      "brick": { "role": "tertiary", "displayName": "Brick", "canonical": "oklch(72% 0.1 35)", "cssVar": "--danger", "tonalRamp": ["oklch(15% 0.1 35)", "oklch(26% 0.1 35)", "oklch(38% 0.1 35)", "oklch(49% 0.1 35)", "oklch(61% 0.1 35)", "oklch(72% 0.1 35)", "oklch(84% 0.1 35)", "oklch(95% 0.1 35)"] },
+      "brick-tint": { "role": "tertiary", "displayName": "Brick Tint", "canonical": "oklch(26% 0.05 35)", "cssVar": "--danger-tint", "tonalRamp": ["oklch(15% 0.05 35)", "oklch(26% 0.05 35)", "oklch(38% 0.05 35)", "oklch(49% 0.05 35)", "oklch(61% 0.05 35)", "oklch(72% 0.05 35)", "oklch(84% 0.05 35)", "oklch(95% 0.05 35)"] },
+      "brass": { "role": "tertiary", "displayName": "Tarnished Brass", "canonical": "oklch(77% 0.08 80)", "cssVar": "--warn", "tonalRamp": ["oklch(15% 0.08 80)", "oklch(26% 0.08 80)", "oklch(38% 0.08 80)", "oklch(49% 0.08 80)", "oklch(61% 0.08 80)", "oklch(72% 0.08 80)", "oklch(84% 0.08 80)", "oklch(95% 0.08 80)"] },
+      "brass-tint": { "role": "tertiary", "displayName": "Brass Tint", "canonical": "oklch(26% 0.04 80)", "cssVar": "--warn-tint", "tonalRamp": ["oklch(15% 0.04 80)", "oklch(26% 0.04 80)", "oklch(38% 0.04 80)", "oklch(49% 0.04 80)", "oklch(61% 0.04 80)", "oklch(72% 0.04 80)", "oklch(84% 0.04 80)", "oklch(95% 0.04 80)"] },
+      "cobalt": { "role": "tertiary", "displayName": "Faded Cobalt", "canonical": "oklch(74% 0.07 240)", "cssVar": "--info", "tonalRamp": ["oklch(15% 0.07 240)", "oklch(26% 0.07 240)", "oklch(38% 0.07 240)", "oklch(49% 0.07 240)", "oklch(61% 0.07 240)", "oklch(72% 0.07 240)", "oklch(84% 0.07 240)", "oklch(95% 0.07 240)"] },
+      "cobalt-tint": { "role": "tertiary", "displayName": "Cobalt Tint", "canonical": "oklch(26% 0.035 240)", "cssVar": "--info-tint", "tonalRamp": ["oklch(15% 0.035 240)", "oklch(26% 0.035 240)", "oklch(38% 0.035 240)", "oklch(49% 0.035 240)", "oklch(61% 0.035 240)", "oklch(72% 0.035 240)", "oklch(84% 0.035 240)", "oklch(95% 0.035 240)"] },
+      "dusk-lavender": { "role": "tertiary", "displayName": "Dusk Lavender", "canonical": "oklch(75% 0.07 305)", "cssVar": "--human", "tonalRamp": ["oklch(15% 0.07 305)", "oklch(26% 0.07 305)", "oklch(38% 0.07 305)", "oklch(49% 0.07 305)", "oklch(61% 0.07 305)", "oklch(72% 0.07 305)", "oklch(84% 0.07 305)", "oklch(95% 0.07 305)"] },
+      "lavender-tint": { "role": "tertiary", "displayName": "Lavender Tint", "canonical": "oklch(26% 0.04 305)", "cssVar": "--human-tint", "tonalRamp": ["oklch(15% 0.04 305)", "oklch(26% 0.04 305)", "oklch(38% 0.04 305)", "oklch(49% 0.04 305)", "oklch(61% 0.04 305)", "oklch(72% 0.04 305)", "oklch(84% 0.04 305)", "oklch(95% 0.04 305)"] },
+      "pewter": { "role": "tertiary", "displayName": "Pewter", "canonical": "oklch(62% 0.018 250)", "cssVar": "--idle", "tonalRamp": ["oklch(15% 0.018 250)", "oklch(26% 0.018 250)", "oklch(38% 0.018 250)", "oklch(49% 0.018 250)", "oklch(61% 0.018 250)", "oklch(72% 0.018 250)", "oklch(84% 0.018 250)", "oklch(95% 0.018 250)"] },
+      "bone": { "role": "tertiary", "displayName": "Bone", "canonical": "oklch(85% 0.02 85)", "cssVar": "--bone", "tonalRamp": ["oklch(15% 0.02 85)", "oklch(26% 0.02 85)", "oklch(38% 0.02 85)", "oklch(49% 0.02 85)", "oklch(61% 0.02 85)", "oklch(72% 0.02 85)", "oklch(84% 0.02 85)", "oklch(95% 0.02 85)"] },
+      "terminal-ground": { "role": "neutral", "displayName": "Terminal Ground", "canonical": "oklch(15% 0.03 152)", "cssVar": "--terminal-bg", "tonalRamp": ["oklch(15% 0.03 152)", "oklch(26% 0.03 152)", "oklch(38% 0.03 152)", "oklch(49% 0.03 152)", "oklch(61% 0.03 152)", "oklch(72% 0.03 152)", "oklch(84% 0.03 152)", "oklch(95% 0.03 152)"] },
+      "terminal-text": { "role": "neutral", "displayName": "Terminal Text", "canonical": "oklch(85% 0.03 152)", "cssVar": "--terminal-fg", "tonalRamp": ["oklch(15% 0.03 152)", "oklch(26% 0.03 152)", "oklch(38% 0.03 152)", "oklch(49% 0.03 152)", "oklch(61% 0.03 152)", "oklch(72% 0.03 152)", "oklch(84% 0.03 152)", "oklch(95% 0.03 152)"] },
+      "daylight-ground": { "role": "neutral", "displayName": "Daylight Ground", "canonical": "oklch(95.5% 0.012 150)", "variant": "light", "cssVar": "--bg", "tonalRamp": ["oklch(15% 0.012 150)", "oklch(26% 0.012 150)", "oklch(38% 0.012 150)", "oklch(49% 0.012 150)", "oklch(61% 0.012 150)", "oklch(72% 0.012 150)", "oklch(84% 0.012 150)", "oklch(95% 0.012 150)"] },
+      "daylight-panel": { "role": "neutral", "displayName": "Daylight Panel", "canonical": "oklch(98.5% 0.006 150)", "variant": "light", "cssVar": "--surface", "tonalRamp": ["oklch(15% 0.006 150)", "oklch(26% 0.006 150)", "oklch(38% 0.006 150)", "oklch(49% 0.006 150)", "oklch(61% 0.006 150)", "oklch(72% 0.006 150)", "oklch(84% 0.006 150)", "oklch(95% 0.006 150)"] },
+      "daylight-shadow": { "role": "neutral", "displayName": "Daylight Shadow", "canonical": "oklch(86% 0.03 150)", "variant": "light", "cssVar": "--shadow", "tonalRamp": ["oklch(15% 0.03 150)", "oklch(26% 0.03 150)", "oklch(38% 0.03 150)", "oklch(49% 0.03 150)", "oklch(61% 0.03 150)", "oklch(72% 0.03 150)", "oklch(84% 0.03 150)", "oklch(95% 0.03 150)"] },
+      "daylight-ink": { "role": "neutral", "displayName": "Daylight Ink", "canonical": "oklch(19.5% 0.03 152)", "variant": "light", "cssVar": "--fg", "tonalRamp": ["oklch(15% 0.03 152)", "oklch(26% 0.03 152)", "oklch(38% 0.03 152)", "oklch(49% 0.03 152)", "oklch(61% 0.03 152)", "oklch(72% 0.03 152)", "oklch(84% 0.03 152)", "oklch(95% 0.03 152)"] },
+      "daylight-signal": { "role": "primary", "displayName": "Daylight Signal", "canonical": "oklch(45% 0.115 150)", "variant": "light", "cssVar": "--accent", "tonalRamp": ["oklch(15% 0.115 150)", "oklch(26% 0.115 150)", "oklch(38% 0.115 150)", "oklch(49% 0.115 150)", "oklch(61% 0.115 150)", "oklch(72% 0.115 150)", "oklch(84% 0.115 150)", "oklch(95% 0.115 150)"] },
+      "daylight-signal-fill": { "role": "primary", "displayName": "Daylight Signal Fill", "canonical": "oklch(50% 0.115 150)", "variant": "light", "cssVar": "--accent-fill", "tonalRamp": ["oklch(15% 0.115 150)", "oklch(26% 0.115 150)", "oklch(38% 0.115 150)", "oklch(49% 0.115 150)", "oklch(61% 0.115 150)", "oklch(72% 0.115 150)", "oklch(84% 0.115 150)", "oklch(95% 0.115 150)"] }
+    },
+    "typographyMeta": {
+      "wordmark": { "displayName": "Wordmark", "purpose": "Sidebar OPENRIG wordmark, the sun's YOU label, the Backlog ring centre name. Uppercase. Brand moments only." },
+      "count-display": { "displayName": "Count Display", "purpose": "The single big number at the centre of the Backlog ring." },
+      "headline": { "displayName": "Headline", "purpose": "Pane heading in split views (Attention, Projects, Specs)." },
+      "map-title": { "displayName": "Map Title", "purpose": "Rig or mission name at the top-left of the map, beside the layer switch; drawer headings share the size." },
+      "title": { "displayName": "Title", "purpose": "List-column and view heads in 58px rows." },
+      "body": { "displayName": "Body", "purpose": "Running text; tabular numerals set globally on body." },
+      "label": { "displayName": "Label", "purpose": "Uppercase section heads, table heads, list group heads. The heading itself, never a kicker above another heading." },
+      "mono": { "displayName": "Mono", "purpose": "Ids, commands, session names and terminal text only." }
+    },
+    "shadows": [],
+    "elevationNote": "No box-shadows, glows, gradients or backdrop blur. Depth is tonal (ground, panel, well, hairline) plus the orrery's lit/shadow layer split. Overlays (toast, tooltips) are inverted blocks, not lifted cards.",
+    "motion": [
+      { "name": "ease-out", "value": "cubic-bezier(0.16, 1, 0.3, 1)", "purpose": "Travel only: orbit swap, drawer panel entry, phone sheets, toast, receipt, pane entry." },
+      { "name": "state-change", "value": "120ms ease-out", "purpose": "Background, border and colour transitions on buttons, segments, nav, rows and bodies." },
+      { "name": "orbit-swap", "value": "position and size 480ms ease-out; opacity 320ms ease-out", "purpose": "Layers exchange lit and shadow places. Eased because it is travel, not rotation. Instant under reduced motion." },
+      { "name": "drawer-in", "value": "translateX(24px) to none with fade, 240ms ease-out", "purpose": "The inner drawer panel slides; the drawer width snaps." },
+      { "name": "phone-sheet", "value": "transform 200ms (sidebar) / 220ms (detail sheet) ease-out", "purpose": "Off-canvas sidebar and detail sheet on phone." },
+      { "name": "clockwork", "value": "rotate 360deg, 40s linear infinite", "purpose": "The backdrop OGCC mark behind the map and the Backlog ring. Never eases, never reacts to interaction; pauses when the tab is hidden." },
+      { "name": "flow", "value": "stroke-dashoffset, 1.8s linear infinite", "purpose": "Qitem dots travelling handoff edges. Hidden under reduced motion." },
+      { "name": "alarm", "value": "scale 1 to 1.3 with fade, 2.4s ease-out infinite", "purpose": "Brick ring on a stalled, unowned body. Static ring under reduced motion." },
+      { "name": "undo-window", "value": "scaleX 1 to 0, var(--undo, 8s) linear", "purpose": "Drain line under the Attention receipt." },
+      { "name": "receipt-in", "value": "clip-path wipe, 320ms ease-out", "purpose": "Attention receipt entry." },
+      { "name": "toast-in", "value": "10px rise with fade, 240ms ease-out", "purpose": "Toast entry." }
+    ],
+    "breakpoints": [
+      { "name": "phone", "value": "767px" },
+      { "name": "sys-cols", "value": "900px" },
+      { "name": "compact", "value": "1100px" }
+    ],
+    "theming": {
+      "source": "src/theme/presets.ts, applied by src/theme/ThemeProvider.tsx",
+      "presets": ["ogcc (Oak Green, default)", "cobalt"],
+      "variants": ["dark", "light (Daylight)"],
+      "overrides": "Adopters add or override presets via /theme.json; viewers override any token in the Theme panel. Unset tokens fall back to OGCC.",
+      "cssVars": ["--bg", "--surface", "--surface-2", "--shadow", "--line", "--line-strong", "--fg", "--body", "--md", "--accent", "--accent-fill", "--on-accent", "--accent-tint", "--danger", "--danger-tint", "--warn", "--warn-tint", "--info", "--info-tint", "--human", "--human-tint", "--idle", "--bone", "--focus", "--terminal-bg", "--terminal-fg", "--terminal-accent", "--font", "--mono"]
+    },
+    "lineage": {
+      "source": "oakgreen.cc (/Users/jamesloosli/OGCC/website/DESIGN.md)",
+      "kept": ["One Hue Rule: Signal Green is the only brand hue", "Toy inks (brick, brass, cobalt, lavender, pewter, bone) for everything that is not the brand, here status", "No radii, no shadows, no glow, no gradients", "system-ui as the only face", "Clockwork linear rotation of the backdrop mark", "Sektor green never used"],
+      "expanded": ["Hairline rules and bordered panels allowed", "Daylight light variant derived from the same ramps", "Status inks lifted to L 72-77% for legibility as text on dark", "The orbit-swap tween eases because it is travel, not rotation"]
+    }
+  },
+  "components": [
+    {
+      "name": "Button",
+      "kind": "button",
+      "refersTo": "button",
+      "description": "Default bordered action; square, Panel Green, hover to Well Green.",
+      "html": "<button class=\"ds-btn\">Relaunch seat</button>",
+      "css": ".ds-btn{border:1px solid var(--line-strong,oklch(38% 0.04 152));background:var(--surface,oklch(22% 0.033 152));color:var(--fg,oklch(95% 0.015 150));padding:7px 12px;min-height:34px;font:600 13px system-ui,-apple-system,sans-serif;border-radius:0;cursor:pointer;transition:background-color 120ms ease-out}.ds-btn:hover{background:var(--surface-2,oklch(25.5% 0.038 151))}.ds-btn:active{translate:0 1px}.ds-btn:focus-visible{outline:2px solid var(--focus,oklch(73% 0.115 150));outline-offset:2px}"
+    },
+    {
+      "name": "Primary Button",
+      "kind": "button",
+      "refersTo": "button-primary",
+      "description": "The one decisive action (Approve, Send); Signal Green fill, kbd hint inline.",
+      "html": "<button class=\"ds-btn-primary\">Approve <kbd class=\"ds-kbd\">E</kbd></button>",
+      "css": ".ds-btn-primary{display:inline-flex;gap:8px;align-items:center;border:1px solid var(--accent-fill,oklch(58.5% 0.115 150));background:var(--accent-fill,oklch(58.5% 0.115 150));color:var(--on-accent,oklch(15% 0.03 152));padding:7px 12px;min-height:34px;font:600 13px system-ui,-apple-system,sans-serif;border-radius:0;cursor:pointer}.ds-btn-primary:hover{filter:brightness(1.08)}.ds-btn-primary:active{translate:0 1px}.ds-btn-primary:focus-visible{outline:2px solid var(--focus,oklch(73% 0.115 150));outline-offset:2px}.ds-kbd{font:500 11px/1 ui-monospace,Menlo,monospace;color:inherit;border:1px solid color-mix(in oklch,currentColor 45%,transparent);padding:2px 5px}"
+    },
+    {
+      "name": "Quiet Button",
+      "kind": "button",
+      "refersTo": "button-quiet",
+      "description": "Secondary inline action in Signal Green Lit text, borderless.",
+      "html": "<button class=\"ds-btn-quiet\">Route to another seat</button>",
+      "css": ".ds-btn-quiet{border:1px solid transparent;background:none;color:var(--accent,oklch(73% 0.115 150));padding:7px 6px;min-height:34px;font:600 13px system-ui,-apple-system,sans-serif;border-radius:0;cursor:pointer;transition:background-color 120ms ease-out}.ds-btn-quiet:hover{background:var(--surface-2,oklch(25.5% 0.038 151))}.ds-btn-quiet:focus-visible{outline:2px solid var(--focus,oklch(73% 0.115 150));outline-offset:2px}"
+    },
+    {
+      "name": "Layer Switch (Segmented)",
+      "kind": "custom",
+      "refersTo": "segmented-option",
+      "description": "Rig/Mission lit-layer switch; sits top-left beside the map title. A Brick lamp flags an unowned step.",
+      "html": "<div class=\"ds-seg\" role=\"group\" aria-label=\"Lit layer\"><button aria-pressed=\"true\">Rig</button><button aria-pressed=\"false\">Mission <i class=\"ds-lamp\"></i></button></div>",
+      "css": ".ds-seg{display:inline-flex;border:1px solid var(--line-strong,oklch(38% 0.04 152));background:var(--surface,oklch(22% 0.033 152))}.ds-seg button{border:0;background:none;padding:6px 12px;min-height:30px;font:600 12px system-ui,-apple-system,sans-serif;color:var(--md,oklch(70% 0.03 152));display:inline-flex;gap:6px;align-items:center;cursor:pointer;transition:background-color 120ms ease-out,color 120ms ease-out}.ds-seg button+button{border-left:1px solid var(--line-strong,oklch(38% 0.04 152))}.ds-seg button:hover{background:var(--surface-2,oklch(25.5% 0.038 151));color:var(--fg,oklch(95% 0.015 150))}.ds-seg button[aria-pressed=true]{background:var(--accent-tint,oklch(27% 0.06 150));color:var(--accent,oklch(73% 0.115 150))}.ds-seg button:focus-visible{outline:2px solid var(--focus,oklch(73% 0.115 150));outline-offset:2px}.ds-lamp{width:6px;height:6px;display:inline-block;background:var(--danger,oklch(72% 0.1 35))}"
+    },
+    {
+      "name": "Status Chips",
+      "kind": "chip",
+      "refersTo": "chip-danger",
+      "description": "Kind and state on meta lines: currentColor border over the tone's tint ground.",
+      "html": "<span class=\"ds-chip\" data-tone=\"danger\">stalled</span> <span class=\"ds-chip\" data-tone=\"human\">needs you</span> <span class=\"ds-chip\" data-tone=\"warn\">at a prompt</span> <span class=\"ds-chip\" data-tone=\"info\">question</span> <span class=\"ds-chip\" data-tone=\"ok\">local</span>",
+      "css": ".ds-chip{display:inline-flex;align-items:center;font:600 11px/1.5 system-ui,-apple-system,sans-serif;padding:1px 6px;border:1px solid currentColor;white-space:nowrap}.ds-chip[data-tone=danger]{color:var(--danger,oklch(72% 0.1 35));background:var(--danger-tint,oklch(26% 0.05 35))}.ds-chip[data-tone=human]{color:var(--human,oklch(75% 0.07 305));background:var(--human-tint,oklch(26% 0.04 305))}.ds-chip[data-tone=warn]{color:var(--warn,oklch(77% 0.08 80));background:var(--warn-tint,oklch(26% 0.04 80))}.ds-chip[data-tone=info]{color:var(--info,oklch(74% 0.07 240));background:var(--info-tint,oklch(26% 0.035 240))}.ds-chip[data-tone=ok]{color:var(--accent,oklch(73% 0.115 150));background:var(--accent-tint,oklch(27% 0.06 150))}"
+    },
+    {
+      "name": "Command Block",
+      "kind": "custom",
+      "refersTo": "command",
+      "description": "Copyable rig command; wraps only between tokens so a flag never splits.",
+      "html": "<div class=\"ds-cmd\"><code><span class=\"t\">rig</span> <span class=\"t\">seat</span> <span class=\"t\">relaunch</span> <span class=\"t\">demo-rig.rev.r2</span> <span class=\"t\">--keep-qitems</span></code><button type=\"button\">Copy</button></div>",
+      "css": ".ds-cmd{display:flex;align-items:stretch;border:1px solid var(--line-strong,oklch(38% 0.04 152));background:var(--surface-2,oklch(25.5% 0.038 151));max-width:100%}.ds-cmd code{flex:1;min-width:0;padding:8px 10px;font:12px/1.5 ui-monospace,SFMono-Regular,Menlo,monospace;color:var(--fg,oklch(95% 0.015 150));white-space:pre-wrap}.ds-cmd .t{white-space:nowrap}.ds-cmd button{border:0;border-left:1px solid var(--line-strong,oklch(38% 0.04 152));background:none;padding:0 12px;font:600 12px system-ui,-apple-system,sans-serif;color:var(--md,oklch(70% 0.03 152));min-width:64px;cursor:pointer}.ds-cmd button:hover{color:var(--fg,oklch(95% 0.015 150));background:var(--surface,oklch(22% 0.033 152))}.ds-cmd button:focus-visible{outline:2px solid var(--focus,oklch(73% 0.115 150));outline-offset:-2px}"
+    },
+    {
+      "name": "Sidebar Navigation",
+      "kind": "nav",
+      "refersTo": "nav-item",
+      "description": "View list with toned counts; current item in Signal Tint.",
+      "html": "<nav class=\"ds-nav\"><button aria-current=\"page\"><svg viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.75\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"M12 12m-2 0a2 2 0 1 0 4 0a2 2 0 1 0 -4 0 M12 3a9 9 0 1 0 9 9 M6.5 12a5.5 5.5 0 0 0 11 0\"/></svg>Topology<span class=\"n\" data-tone=\"danger\">1 stalled</span></button><button><svg viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.75\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"M4 13h3.5l1.5 3h6l1.5-3H20 M4 13l2.5-8h11L20 13v6H4z\"/></svg>Attention<span class=\"n\">5</span></button><button><svg viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.75\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"M4 5h16v14H4z M8 10l2 2-2 2 M12 14h4\"/></svg>Terminals<span class=\"n\" data-tone=\"warn\">1 at a prompt</span></button></nav>",
+      "css": ".ds-nav{display:flex;flex-direction:column;gap:1px;padding:10px;width:232px;background:var(--surface,oklch(22% 0.033 152))}.ds-nav button{display:flex;align-items:center;gap:10px;width:100%;text-align:left;background:none;border:0;padding:8px 10px;min-height:36px;color:var(--body,oklch(86% 0.02 150));font:500 14px system-ui,-apple-system,sans-serif;cursor:pointer;transition:background-color 120ms ease-out}.ds-nav svg{width:19px;height:19px;flex:none;color:var(--md,oklch(70% 0.03 152))}.ds-nav button:hover{background:var(--surface-2,oklch(25.5% 0.038 151))}.ds-nav button[aria-current=page]{background:var(--accent-tint,oklch(27% 0.06 150));color:var(--accent,oklch(73% 0.115 150))}.ds-nav button[aria-current=page] svg{color:var(--accent,oklch(73% 0.115 150))}.ds-nav button:focus-visible{outline:2px solid var(--focus,oklch(73% 0.115 150));outline-offset:2px}.ds-nav .n{margin-left:auto;font-size:12px;color:var(--md,oklch(70% 0.03 152));font-variant-numeric:tabular-nums;white-space:nowrap}.ds-nav .n[data-tone=danger]{color:var(--danger,oklch(72% 0.1 35));font-weight:600}.ds-nav .n[data-tone=warn]{color:var(--warn,oklch(77% 0.08 80));font-weight:600}"
+    },
+    {
+      "name": "List Row",
+      "kind": "card",
+      "refersTo": "list-row",
+      "description": "Attention list row: title with its age, the kind leading the scope line (never a kicker above the title).",
+      "html": "<div class=\"ds-list\"><button class=\"ds-li\" aria-current=\"true\"><span class=\"tt\">Approve deploy of rigui to staging</span><span class=\"age\">12m</span><span class=\"ref\"><b data-tone=\"human\">approval</b>demo-rig · rev</span></button><button class=\"ds-li\"><span class=\"tt\">Which schema owns qitem ids?</span><span class=\"age\">2h</span><span class=\"ref\"><b data-tone=\"info\">question</b>demo-rig · orch</span></button></div>",
+      "css": ".ds-list{width:340px;background:var(--surface,oklch(22% 0.033 152))}.ds-li{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:3px 12px;align-items:baseline;width:100%;text-align:left;position:relative;padding:12px 16px;background:var(--surface,oklch(22% 0.033 152));border:0;border-bottom:1px solid var(--line,oklch(29% 0.035 152));color:var(--body,oklch(86% 0.02 150));font:14px/1.45 system-ui,-apple-system,sans-serif;cursor:pointer;transition:background-color 120ms ease-out}.ds-li:hover{background:var(--surface-2,oklch(25.5% 0.038 151))}.ds-li:focus-visible{outline:2px solid var(--focus,oklch(73% 0.115 150));outline-offset:-2px}.ds-li[aria-current=true]{background:var(--accent-tint,oklch(27% 0.06 150))}.ds-li[aria-current=true]::before{content:\"\";position:absolute;inset:-1px 0 0;border:1px solid var(--accent,oklch(73% 0.115 150));pointer-events:none}.ds-li .tt{color:var(--fg,oklch(95% 0.015 150));font-weight:600;font-size:13.5px;line-height:1.35}.ds-li .age{font-size:12px;color:var(--md,oklch(70% 0.03 152));white-space:nowrap}.ds-li .ref{grid-column:1/-1;font-size:12px;color:var(--md,oklch(70% 0.03 152))}.ds-li .ref b{font-weight:600;margin-right:8px}.ds-li .ref b[data-tone=human]{color:var(--human,oklch(75% 0.07 305))}.ds-li .ref b[data-tone=info]{color:var(--info,oklch(74% 0.07 240))}"
+    },
+    {
+      "name": "Orrery Stations (lit, stalled, shadow)",
+      "kind": "custom",
+      "refersTo": "lamp",
+      "description": "Signature: a lit station, a stalled station with a two-line reason, and a token-tinted shadow-layer body that lifts on hover to invite the swap.",
+      "html": "<svg class=\"ds-orr\" viewBox=\"0 0 420 90\" font-family=\"system-ui,-apple-system,sans-serif\"><g class=\"b\" tabindex=\"0\"><rect class=\"box\" x=\"10\" y=\"10\" width=\"132\" height=\"66\"/><rect class=\"lamp\" x=\"22\" y=\"23\" width=\"8\" height=\"8\"/><text class=\"nm\" x=\"36\" y=\"32\">infra</text><text class=\"as\" x=\"130\" y=\"32\">1/2</text><text class=\"sb\" x=\"22\" y=\"52\">1 working</text></g><g class=\"b\" data-tone=\"danger\" tabindex=\"0\"><rect class=\"box\" x=\"160\" y=\"10\" width=\"132\" height=\"66\"/><rect class=\"lamp\" x=\"172\" y=\"23\" width=\"8\" height=\"8\"/><text class=\"nm\" x=\"186\" y=\"32\">rev</text><text class=\"as\" x=\"280\" y=\"32\">0/2</text><text class=\"sb\" x=\"172\" y=\"52\">reviewer exited</text><text class=\"sb\" x=\"172\" y=\"67\">holding 1</text></g><g class=\"b\" data-shadow tabindex=\"0\"><rect class=\"box\" x=\"310\" y=\"26\" width=\"96\" height=\"30\"/><rect class=\"lamp\" x=\"320\" y=\"37\" width=\"7\" height=\"7\"/><text class=\"nm sm\" x=\"333\" y=\"45\">verify</text></g></svg>",
+      "css": ".ds-orr{width:420px;display:block;background:var(--bg,oklch(19.5% 0.03 152))}.ds-orr .b{cursor:pointer;outline:none}.ds-orr .box{fill:var(--surface,oklch(22% 0.033 152));stroke:var(--line-strong,oklch(38% 0.04 152));stroke-width:1;transition:fill 120ms ease-out}.ds-orr .b:hover .box{fill:var(--surface-2,oklch(25.5% 0.038 151))}.ds-orr .b:focus-visible .box{stroke:var(--accent,oklch(73% 0.115 150));stroke-width:2}.ds-orr .lamp{fill:var(--accent-fill,oklch(58.5% 0.115 150))}.ds-orr .nm{fill:var(--fg,oklch(95% 0.015 150));font-size:14px;font-weight:700}.ds-orr .nm.sm{font-size:11px;font-weight:600}.ds-orr .as{fill:var(--md,oklch(70% 0.03 152));font-size:12px;font-weight:600;text-anchor:end;font-variant-numeric:tabular-nums}.ds-orr .sb{fill:var(--md,oklch(70% 0.03 152));font-size:11.5px}.ds-orr [data-tone=danger] .box{stroke:var(--danger,oklch(72% 0.1 35));stroke-width:2;fill:color-mix(in oklch,var(--danger-tint,oklch(26% 0.05 35)) 70%,var(--surface,oklch(22% 0.033 152)))}.ds-orr [data-tone=danger] .lamp{fill:var(--danger,oklch(72% 0.1 35))}.ds-orr [data-tone=danger] .sb,.ds-orr [data-tone=danger] .as{fill:var(--danger,oklch(72% 0.1 35));font-weight:600}.ds-orr [data-shadow] .box{fill:var(--bg,oklch(19.5% 0.03 152));stroke:var(--shadow,oklch(31% 0.06 150));stroke-dasharray:3 3}.ds-orr [data-shadow] .nm{fill:var(--md,oklch(70% 0.03 152))}.ds-orr [data-shadow] .lamp{fill:var(--shadow,oklch(31% 0.06 150))}.ds-orr [data-shadow]:hover .box,.ds-orr [data-shadow]:focus-visible .box{stroke:var(--accent,oklch(73% 0.115 150));stroke-dasharray:none;fill:var(--surface,oklch(22% 0.033 152))}.ds-orr [data-shadow]:hover .nm{fill:var(--fg,oklch(95% 0.015 150))}"
+    }
+  ],
+  "narrative": {
+    "northStar": "The Quiet Orrery, Operated",
+    "overview": "This is oakgreen.cc's night sky put to work. The splash page's orrery (a dark, slow mechanical sky with the OGCC mark as sun) becomes the console's home: the rig and its mission are two systems sharing one sky, pods as square stations on the inner orbit, seats as bodies around them, workflow steps on the far track. One system is lit and the other sits in shadow; picking a shadowed body swaps them. Everything else (Attention, Backlog, Projects, Specs, Terminals, System) is the same ground, panel and hairline carried into lists, panes and tables.\n\nDensity is operational, not decorative: a 232px sidebar, a work area, and a right drawer on pick. Hierarchy comes from weight, case and tone, never from colour noise. The brand's clockwork survives: a giant OGCC mark turns linearly in Shadow Orbit behind the map and the Backlog ring, and nothing else in the machine spins.\n\nThe lineage is explicit. **Kept from OGCC:** the One Hue Rule (Signal Green is the only brand hue), the toy-ink family for everything that is not the brand (here repurposed as status), square corners, no shadows, no glow, no gradients, system-ui as the only face, linear clockwork rotation of the backdrop mark, and Sektor green never appearing. **Expanded for an operate surface:** hairline rules and bordered panels are allowed (the splash page had none); a light \"Daylight\" variant derived from the same ramps; status inks are lifted to L≈72–77% so they read as text on the dark ground (the splash inks sat at L≈61% as drawn objects); the orbit-swap tween eases, because it is travel, not rotation.",
+    "keyCharacteristics": [
+      "One brand hue (Signal Green) per preset; status in toy inks; every colour a token.",
+      "Square everything (0 radius); 1px hairlines in shadow tone; flat tonal layering.",
+      "system-ui for all text and all counts; ui-monospace only for ids, commands and terminal text.",
+      "The orrery is the signature: lit/shadow dual layers, seats as motes in shadow, a clockwork backdrop mark.",
+      "Fully themeable: presets carry dark and light variants; adopters override any token via `/theme.json` or the Theme panel, falling back to OGCC."
+    ],
+    "rules": [
+      { "name": "The One Hue Rule", "body": "Within a preset, the accent is the only brand hue. Selection, focus, \"you\" and flow are Signal Green; nothing else borrows it. A new element that needs a second brand colour is the wrong element.", "section": "colors" },
+      { "name": "The Ink Means Status Rule", "body": "Brick, brass, cobalt, lavender and pewter carry state and nothing else, always with a text or shape cue beside them so state is never colour alone.", "section": "colors" },
+      { "name": "The Token-Only Rule", "body": "Every colour painted comes from a token in the preset; no raw colours in stylesheets. Tints of a token use `color-mix(in oklch, ...)` against another token.", "section": "colors" },
+      { "name": "The Guest Mark Rule", "body": "Sektor's #41ff19 never appears in the console and never stands for OGCC.", "section": "colors" },
+      { "name": "The Tabular Count Rule", "body": "Numerals in counts, ratios and ages are system-ui with tabular figures (set on `body`). Monospace is only for ids, commands and terminal text; a count in mono is wrong.", "section": "typography" },
+      { "name": "The No Kicker Rule", "body": "No kicker or eyebrow sits above a heading. The kind of a thing (spec kind, item kind, state) goes in a chip or a leading word on the meta line under the heading, or in front of the scope line in a list row.", "section": "typography" },
+      { "name": "The Two-Line Reason Rule", "body": "A station's subtitle is the sentence the map exists to say: it wraps to two lines at word boundaries, and only the second line may truncate.", "section": "typography" },
+      { "name": "The Snap-Then-Slide Rule", "body": "The drawer's width snaps open (the map re-lays out once, not per frame); only the inner panel slides in on a transform (24px, 240ms, ease-out). On phone the whole sheet slides on transform.", "section": "layout" },
+      { "name": "The Title-Beside-Switch Rule", "body": "The map's layer switch lives at the top-left beside the map title, never floating elsewhere on the sky.", "section": "layout" },
+      { "name": "The No-Glow Rule", "body": "Any shadow, glow or blur breaks the night sky. Emphasis is a stroke width, a tint ground, or an inversion.", "section": "elevation" },
+      { "name": "The Tinted Shadow Rule", "body": "The shadow layer is tinted from tokens (ground fill, Shadow Orbit dashed stroke, muted label), never a greyscale or opacity filter over the lit style. The one-hue world stays green in shadow, and shadow labels hold at least 3:1 on the ground.", "section": "elevation" }
+    ],
+    "dos": [
+      "**Do** take every colour from a preset token, and let anything a theme leaves unset fall back to OGCC.",
+      "**Do** keep Signal Green for selection, focus, \"you\" and flow only; speak status in the toy inks with a text cue beside them.",
+      "**Do** keep all corners square and all rules 1px hairlines in the shadow tone.",
+      "**Do** put an item's kind in a chip or a leading word on the meta line, not above the heading.",
+      "**Do** tint the shadow layer from tokens and keep its labels at 3:1 or better.",
+      "**Do** set counts in system-ui tabular figures; reserve mono for ids, commands and terminal text.",
+      "**Do** wrap station reasons to two lines and wrap commands only between tokens.",
+      "**Do** rotate the backdrop mark linearly; ease only travel (the orbit swap, drawer and sheet entry, toasts).",
+      "**Do** drop travel and loops under `prefers-reduced-motion` while keeping state visible."
+    ],
+    "donts": [
+      "**Don't** use box-shadows, glows, gradients or backdrop blur.",
+      "**Don't** round corners.",
+      "**Don't** place kickers or eyebrows above headings.",
+      "**Don't** greyscale or filter the shadow layer; it stays green.",
+      "**Don't** set counts or ratios in monospace.",
+      "**Don't** ease, speed up or stop the clockwork backdrop for interaction.",
+      "**Don't** animate the drawer's width; snap it and slide the inner panel.",
+      "**Don't** use Sektor green (#41ff19) anywhere in the console.",
+      "**Don't** introduce a second brand hue within a preset."
+    ]
+  }
+}

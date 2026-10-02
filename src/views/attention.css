@@ -1,0 +1,49 @@
+/* Rows: the title leads with its age beside it; the kind rides in front of the scope, not above the title. */
+.li-att .li-title { grid-column: 1; }
+.li-att .age { grid-column: 2; grid-row: 1; align-self: baseline; }
+.li-att .li-ref { font-family: var(--font); font-size: 12px; }
+.li-k { font-weight: 600; margin-right: 8px; color: var(--md); }
+.li-k[data-tone="human"] { color: var(--human); }
+.li-k[data-tone="danger"] { color: var(--danger); }
+.li-k[data-tone="warn"] { color: var(--warn); }
+.li-k[data-tone="ok"] { color: var(--accent); }
+.li-k[data-tone="info"] { color: var(--info); }
+.pane-meta { align-items: center; }
+.prompt-tail { margin: 0 0 16px; padding: 12px 14px; max-height: 260px; overflow: auto; background: var(--terminal-bg); color: var(--terminal-fg); font: 12px/1.55 var(--mono); white-space: pre-wrap; overflow-wrap: anywhere; border: 1px solid var(--warn); }
+
+/* The receipt: what just happened, with the undo window draining under it. */
+.receipt {
+  position: relative; overflow: hidden; display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 12px; align-items: baseline;
+  padding: 11px 16px 13px; background: var(--accent-tint); border-bottom: 1px solid var(--line); color: var(--fg); font-size: 13px;
+}
+.receipt button { background: none; border: 0; color: var(--accent); font-weight: 600; padding: 0; display: inline-flex; gap: 6px; align-items: center; }
+.receipt::after { content: ""; position: absolute; left: 0; right: 0; bottom: 0; height: 2px; background: var(--accent-fill); transform-origin: left; animation: undo-window var(--undo, 8s) linear forwards; }
+@keyframes undo-window { from { transform: scaleX(1); } to { transform: scaleX(0); } }
+@media (prefers-reduced-motion: no-preference) {
+  .receipt { animation: receipt-in 320ms var(--ease-out); }
+  .att-pane { animation: pane-in 220ms var(--ease-out); }
+}
+@keyframes receipt-in { from { clip-path: inset(0 100% 0 0); } to { clip-path: inset(0 0 0 0); } }
+@keyframes pane-in { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: none; } }
+
+.att-pane .facts .tags { display: inline-flex; flex-wrap: wrap; gap: 4px 10px; }
+.att-pane .facts .tags .mono { color: var(--md); }
+.att-actions { margin: 18px 0 16px; }
+
+.qs { border: 0; margin: 4px 0 18px; padding: 0; display: grid; gap: 16px; }
+.q p { margin: 0 0 7px; color: var(--fg); font-weight: 600; max-width: 62ch; }
+.q p .mono { color: var(--md); margin-right: 8px; font-weight: 500; }
+.q label { display: flex; gap: 9px; align-items: baseline; padding: 5px 0; font-size: 13.5px; cursor: pointer; }
+.q label small { color: var(--accent); font-weight: 600; font-size: 11px; letter-spacing: 0.06em; text-transform: uppercase; }
+.q input { accent-color: var(--accent-fill); margin: 0; translate: 0 2px; }
+
+.ask { display: grid; gap: 8px; margin: 18px 0 16px; max-width: 560px; padding: 14px; background: var(--surface); border: 1px solid var(--line-strong); }
+.ask label { font-size: 12px; font-weight: 600; color: var(--md); }
+.ask textarea, .ask select { width: 100%; background: var(--bg); border: 1px solid var(--line-strong); padding: 8px 10px; border-radius: 0; resize: vertical; }
+.ask textarea::placeholder { color: var(--md); }
+.ask textarea:focus, .ask select:focus { outline: 2px solid var(--focus); outline-offset: -1px; }
+
+.or-run { margin-top: 8px; font-size: 13px; }
+.or-run summary { cursor: pointer; color: var(--md); padding: 4px 0; width: max-content; }
+.or-run summary:hover { color: var(--fg); }
+.or-run .cmd { margin-top: 8px; }

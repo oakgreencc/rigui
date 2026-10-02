@@ -1,0 +1,53 @@
+.sys { min-height: 100vh; }
+.sys-tabs { padding: 12px 24px; border-bottom: 1px solid var(--line); background: var(--surface); overflow-x: auto; }
+.sys-tabs .seg { flex-wrap: nowrap; }
+.sys-body { max-width: 1180px; }
+.sys-cols { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 32px; }
+.sys-cols section > .label, .sys-cols form > .label, .sys-h { margin: 0 0 12px; }
+.sys-h { margin-top: 26px; }
+.sys-lede { margin: 0 0 14px; color: var(--md); max-width: 68ch; font-size: 13px; }
+.sys-bar { display: flex; justify-content: space-between; align-items: baseline; gap: 16px; flex-wrap: wrap; }
+.sys-bar p { margin: 0 0 14px; color: var(--md); font-size: 13px; }
+.check { display: inline-flex; gap: 8px; align-items: center; font-size: 13px; color: var(--body); cursor: pointer; }
+.check input { accent-color: var(--accent-fill); }
+.facts .lamp { transform: translateY(-1px); }
+td .sub { font-weight: 400; color: var(--md); font-size: 12px; margin-top: 2px; }
+td .lamp { transform: translateY(-1px); margin-right: 4px; }
+
+.findings { list-style: none; margin: 0; padding: 0; display: grid; gap: 0; border-top: 1px solid var(--line); }
+.findings li { padding: 14px 0 12px; border-bottom: 1px solid var(--line); }
+.f-h { display: flex; gap: 10px; align-items: center; }
+.f-h b { color: var(--fg); font-size: 14px; }
+.f-h .chip { margin-left: auto; }
+.findings p { margin: 6px 0 0 18px; font-size: 13px; max-width: 72ch; }
+.findings .f-meta { color: var(--md); font-size: 12px; }
+.findings .cmd { margin: 10px 0 0 18px; }
+
+.field { display: grid; grid-template-columns: 72px minmax(0, 1fr); gap: 12px; align-items: center; margin: 0 0 14px; font-size: 13px; color: var(--md); }
+.field .seg { justify-self: start; }
+.presets { display: flex; flex-wrap: wrap; gap: 8px; }
+.preset { display: inline-flex; gap: 8px; align-items: center; padding: 5px 10px 5px 5px; border: 1px solid var(--line-strong); background: var(--surface); font-size: 13px; font-weight: 600; color: var(--fg); }
+.preset[aria-checked="true"] { border-color: var(--accent); background: var(--accent-tint); color: var(--accent); }
+.sw { width: 34px; height: 22px; display: inline-flex; align-items: end; gap: 3px; padding: 4px; border: 1px solid var(--line); }
+.sw i { width: 9px; height: 9px; display: block; }
+.tok { width: 100%; padding: 10px 12px; background: var(--terminal-bg); color: var(--terminal-fg); border: 1px solid var(--line-strong); border-radius: 0; font: 12px/1.55 var(--mono); resize: vertical; margin-bottom: 10px; }
+.tok:focus { outline: 2px solid var(--focus); outline-offset: -1px; }
+.tokens { display: grid; border-top: 1px solid var(--line); max-height: 640px; overflow-y: auto; }
+.tok-row { display: grid; grid-template-columns: 22px minmax(0, 150px) minmax(0, 1fr); gap: 10px; align-items: center; padding: 7px 4px; background: none; border: 0; border-bottom: 1px solid var(--line); text-align: left; font-size: 12.5px; }
+.tok-row:hover { background: var(--surface-2); }
+.swatch { width: 22px; height: 22px; border: 1px solid var(--line-strong); display: inline-flex; align-items: center; justify-content: center; }
+.swatch.type { font-size: 11px; font-weight: 700; color: var(--fg); background: var(--surface); }
+.tok-k { color: var(--fg); overflow: hidden; text-overflow: ellipsis; }
+.tok-d { color: var(--md); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+
+.conn { display: grid; gap: 6px; align-content: start; max-width: 460px; }
+.conn label { font-size: 12px; font-weight: 600; color: var(--md); margin-top: 8px; }
+.conn input { padding: 8px 10px; background: var(--bg); border: 1px solid var(--line-strong); border-radius: 0; }
+.conn input::placeholder { color: var(--md); }
+.conn input:focus { outline: 2px solid var(--focus); outline-offset: -1px; }
+.conn small { color: var(--md); font-size: 12px; }
+.conn .actions { margin-top: 12px; }
+.links a { font-weight: 600; }
+
+@media (max-width: 900px) { .sys-cols { grid-template-columns: minmax(0, 1fr); } }
+@media (max-width: 767px) { .sys-tabs { padding: 10px 16px; } }

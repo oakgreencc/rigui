@@ -1,0 +1,32 @@
+.spec-filter { position: sticky; top: 0; z-index: 3; display: grid; gap: 8px; padding: 10px 16px; background: var(--surface); border-bottom: 1px solid var(--line); }
+.spec-filter input { width: 100%; padding: 7px 10px; background: var(--bg); border: 1px solid var(--line-strong); border-radius: 0; }
+.spec-filter input::placeholder { color: var(--md); }
+.spec-filter input:focus { outline: 2px solid var(--focus); outline-offset: -1px; }
+.spec-filter .seg { justify-self: start; }
+#specs .list-group { top: 91px; }
+.spec-t { grid-column: 1; }
+.spec-p { font-family: var(--font); font-size: 12px; white-space: normal; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; }
+
+.chain { list-style: none; margin: 0 0 12px; padding: 0; display: flex; flex-wrap: wrap; gap: 6px 0; align-items: center; }
+.chain li { display: inline-grid; grid-template-columns: auto auto; column-gap: 8px; align-items: center; }
+.chain b { color: var(--fg); padding: 5px 9px; border: 1px solid var(--line-strong); background: var(--surface); font-size: 13px; }
+.chain span { display: none; }
+.chain-arrow { width: 16px; height: 16px; color: var(--md); margin-right: 8px; }
+
+.minirig { display: block; width: 100%; max-width: 460px; height: auto; margin: 0 0 12px; background: var(--surface); border: 1px solid var(--line); font-family: var(--font); }
+.minirig .orbit { fill: none; stroke: var(--line); stroke-dasharray: 1 5; stroke-linecap: round; }
+.mr-pod { fill: var(--surface-2); stroke: var(--line-strong); }
+.mr-name { fill: var(--fg); font-size: 13px; font-weight: 700; text-anchor: middle; }
+.mr-sub { fill: var(--md); font-size: 10px; text-anchor: middle; }
+.mr-seat { fill: var(--accent-fill); }
+.mr-seat[data-rt="codex"] { fill: var(--info); }
+.mr-seat[data-rt="terminal"] { fill: var(--idle); }
+.mr-seat-n { fill: var(--md); font-size: 10px; }
+
+.code { border: 1px solid var(--line); background: var(--terminal-bg); overflow: auto; max-height: 560px; }
+.code pre { margin: 0; padding: 12px 0; font: 12px/1.6 var(--mono); color: var(--terminal-fg); }
+.code .ln { display: block; padding-right: 16px; white-space: pre; }
+.code .ln i { display: inline-block; width: 44px; padding-right: 14px; text-align: right; color: color-mix(in oklch, var(--terminal-fg) 40%, transparent); font-style: normal; user-select: none; }
+.code .k { color: var(--terminal-accent); }
+.code .v { color: var(--terminal-fg); }
+.code .c { color: color-mix(in oklch, var(--terminal-fg) 55%, transparent); font-style: italic; }

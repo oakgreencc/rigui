@@ -1,0 +1,136 @@
+/* The orrery. Motion here is the brand's clockwork: linear, never eased — except the swap, which is travel. */
+.orrery { position: relative; width: 100%; height: 100%; isolation: isolate; overflow: hidden; }
+.orrery > svg { display: block; width: 100%; height: 100%; font-family: var(--font); overflow: visible; }
+
+/* The giant mark turning in shadow behind the sky, 1.5 rpm. */
+.orrery-backdrop {
+  position: absolute; z-index: -1; pointer-events: none; color: var(--shadow); opacity: .32;
+  width: 150%; aspect-ratio: 1; left: -25%; top: 50%; translate: 0 -50%;
+}
+[data-theme="light"] .orrery-backdrop { opacity: .45; }
+@media (min-aspect-ratio: 1/1) { .orrery-backdrop { width: auto; height: 150%; left: 50%; top: -25%; translate: -50% 0; } }
+
+.orbit { fill: none; stroke: var(--line); stroke-width: 1; }
+.orbit.faint { stroke-dasharray: 2 6; stroke-linecap: round; }
+.orbit.track { stroke: var(--line); stroke-dasharray: 1 5; stroke-linecap: round; }
+
+/* ---------- Bodies ---------- */
+.body { cursor: pointer; outline: none; transition: transform 480ms var(--ease-out), opacity 320ms ease-out; }
+.body .box { fill: var(--surface); stroke: var(--line-strong); stroke-width: 1; transition: fill 120ms ease-out, width 480ms var(--ease-out), height 480ms var(--ease-out), x 480ms var(--ease-out), y 480ms var(--ease-out); }
+.body:hover .box, .body[data-hover] .box { fill: var(--surface-2); }
+.body[data-tone="warn"] .box { stroke: var(--warn); }
+.body[data-tone="human"] .box { stroke: var(--human); }
+.body[data-tone="danger"] .box { stroke: var(--danger); stroke-width: 2; fill: color-mix(in oklch, var(--danger-tint) 70%, var(--surface)); }
+.body .ring { fill: none; stroke: var(--accent); stroke-width: 2; opacity: 0; transition: opacity 120ms ease-out; }
+.body[data-sel] .ring, .body:focus-visible .ring { opacity: 1; }
+.body[data-dim] { opacity: .4; }
+.body[data-place="hidden"] { opacity: 0; pointer-events: none; }
+
+.b-lamp { fill: var(--accent-fill); }
+.body[data-tone="warn"] .b-lamp { fill: var(--warn); }
+.body[data-tone="danger"] .b-lamp { fill: var(--danger); }
+.body[data-tone="human"] .b-lamp { fill: var(--human); }
+.body[data-tone="idle"] .b-lamp { fill: var(--line-strong); }
+.b-name { fill: var(--fg); font-size: 14px; font-weight: 700; }
+.b-name.sm { font-size: 12.5px; }
+.b-name.xs { font-size: 11px; font-weight: 600; }
+.b-aside { fill: var(--md); font-size: 12px; font-weight: 600; text-anchor: end; font-variant-numeric: tabular-nums; }
+.b-sub { fill: var(--md); font-size: 11.5px; }
+.b-sub.sm { font-size: 10.5px; }
+.body[data-tone="danger"] .b-sub, .body[data-tone="danger"] .b-aside { fill: var(--danger); font-weight: 600; }
+.body[data-tone="human"] .b-sub { fill: var(--human); font-weight: 600; }
+.body[data-tone="warn"] .b-sub { fill: var(--warn); }
+.body[data-kind="seat"][data-place="satellite"] .box { stroke: var(--line); }
+.body[data-kind="seat"][data-tone="danger"] .box { stroke: var(--danger); }
+.body[data-kind="seat"][data-tone="warn"] .box { stroke: var(--warn); }
+.body[data-kind="seat"][data-tone="human"] .box { stroke: var(--human); }
+/* Narrow seats are bare bodies: the fill is the state. */
+.orrery[data-narrow] .body[data-kind="seat"] .box { fill: var(--accent-fill); stroke: none; }
+.orrery[data-narrow] .body[data-kind="seat"][data-tone="warn"] .box { fill: var(--warn); }
+.orrery[data-narrow] .body[data-kind="seat"][data-tone="danger"] .box { fill: var(--danger); }
+.orrery[data-narrow] .body[data-kind="seat"][data-tone="human"] .box { fill: var(--human); }
+.orrery[data-narrow] .body[data-kind="seat"][data-tone="idle"] .box { fill: var(--line-strong); }
+.orrery[data-narrow] .b-name { font-size: 22px; }
+.orrery[data-narrow] .b-name.xs { font-size: 17px; }
+.orrery[data-narrow] .b-aside { font-size: 18px; }
+.orrery[data-narrow] .b-sub { font-size: 17px; }
+
+/* ---------- The shadow layer: in Shadow Orbit, quiet, still there. A body nobody owns shows through. ----------
+   Tinted from tokens, never greyscaled: the one-hue world stays green in shadow. Labels hold 3:1 on the ground. */
+.layer[data-shadow] .body:not([data-tone="danger"]) .box { fill: var(--bg); stroke: var(--shadow); stroke-dasharray: 3 3; }
+.layer[data-shadow] .body:not([data-tone="danger"]) .b-name { fill: var(--md); }
+.layer[data-shadow] .body:not([data-tone="danger"]) .b-lamp { fill: var(--shadow); }
+.layer[data-shadow] .body[data-tone="danger"] .box { stroke-dasharray: 3 3; }
+.layer[data-shadow] .body:hover .box, .layer[data-shadow] .body:focus-visible .box { stroke: var(--accent); stroke-dasharray: none; fill: var(--surface); }
+.layer[data-shadow] .body:hover .b-name { fill: var(--fg); }
+.layer[data-shadow] .body[data-dim] { opacity: .7; }
+
+/* Motes: seats in shadow, a small body each beside their pod. */
+.body[data-place="mote"] .box { fill: var(--shadow); stroke: none; stroke-dasharray: none; }
+.body[data-place="mote"][data-tone="warn"] .box { fill: var(--warn-tint); stroke: var(--warn); }
+.body[data-place="mote"][data-tone="human"] .box { fill: var(--human-tint); stroke: var(--human); }
+.body[data-place="mote"][data-tone="danger"] .box { fill: var(--danger); stroke: none; }
+.layer[data-shadow] .body[data-place="mote"]:not([data-tone="danger"]) .box { fill: var(--shadow); stroke: none; }
+.layer[data-shadow] .body[data-place="mote"]:hover .box { fill: var(--accent-fill); }
+
+/* ---------- Links between layers ---------- */
+.link { stroke: var(--line-strong); stroke-width: 1; transition: opacity 120ms ease-out; }
+.link[data-kind="spoke"] { stroke: var(--line); }
+.link[data-kind="holds"] { stroke-dasharray: 2 4; stroke-linecap: round; }
+.link[data-kind="holds"][data-tone="danger"] { stroke: var(--danger); }
+.link[data-kind="you"] { stroke: var(--human); stroke-dasharray: 4 5; stroke-width: 1.25; }
+.link[data-dim] { opacity: .2; }
+
+/* ---------- Flows ---------- */
+.flow-edge { fill: none; stroke: var(--md); stroke-width: 1.25; opacity: .7; stroke-linecap: round; }
+.flow-head { fill: var(--md); opacity: .8; }
+.flow-dot { fill: none; stroke: var(--accent); stroke-width: 3.5; stroke-linecap: round; stroke-dasharray: 0.1 26; pointer-events: none; }
+.flows g[data-dim] { opacity: .18; }
+.flows g[data-lit] .flow-edge { stroke: var(--fg); opacity: 1; stroke-width: 1.75; }
+.flows g[data-lit] .flow-head { fill: var(--fg); }
+.orrery[data-narrow] .flow-dot { stroke-width: 6; stroke-dasharray: 0.1 40; }
+
+/* ---------- The sun: you ---------- */
+.sun { cursor: pointer; outline: none; }
+.sun-hit { fill: transparent; }
+.sun-mark { color: var(--accent-fill); overflow: visible; }
+.sun[data-tone="human"] .sun-mark { color: var(--human); }
+.sun-name { fill: var(--fg); font-size: 13px; font-weight: 300; letter-spacing: 0.25em; text-transform: uppercase; text-anchor: middle; }
+.sun-sub { fill: var(--md); font-size: 12px; text-anchor: middle; }
+.sun[data-tone="human"] .sun-sub { fill: var(--human); font-weight: 600; }
+.sun:hover .sun-sub, .sun:focus-visible .sun-sub { text-decoration: underline; }
+.sun:focus-visible .sun-hit { stroke: var(--focus); stroke-width: 2; }
+.orrery[data-narrow] .sun-name { font-size: 20px; }
+.orrery[data-narrow] .sun-sub { font-size: 18px; }
+
+/* ---------- Tooltip ---------- */
+.orrery-tip {
+  position: absolute; z-index: 5; pointer-events: none; transform: translate(-50%, -100%);
+  background: var(--fg); color: var(--bg); padding: 8px 10px; font-size: 12px; line-height: 1.4; max-width: 280px; width: max-content;
+}
+.orrery-tip[data-below] { transform: translate(-50%, 0); }
+.orrery-tip b { display: block; font-size: 13px; font-weight: 700; }
+.orrery-tip .k { display: block; opacity: .7; font-size: 11.5px; margin-bottom: 2px; }
+.orrery-tip .hint { display: block; margin-top: 4px; opacity: .75; font-size: 11px; }
+
+/* ---------- Motion ---------- */
+@media (prefers-reduced-motion: no-preference) {
+  .orrery-backdrop { animation: clockwork 40s linear infinite; }
+  .flow-dot { animation: flow 1.8s linear infinite; }
+  .orrery[data-narrow] .flow-dot { animation-name: flow-n; }
+  .alarm { animation: alarm 2.4s var(--ease-out) infinite; }
+  .links, .flows { animation: settle 420ms ease-out 260ms both; }
+}
+.alarm { fill: none; stroke: var(--danger); stroke-width: 2; opacity: 0; transform-box: fill-box; transform-origin: center; pointer-events: none; }
+@keyframes clockwork { to { rotate: 360deg; } }
+@keyframes flow { to { stroke-dashoffset: -26.1; } }
+@keyframes flow-n { to { stroke-dashoffset: -40.1; } }
+@keyframes alarm { 0% { opacity: .75; transform: scale(1); } 70%, 100% { opacity: 0; transform: scale(1.3); } }
+@keyframes settle { from { opacity: 0; } to { opacity: 1; } }
+@media (prefers-reduced-motion: reduce) {
+  .body, .body .box { transition: none; }
+  .flow-dot { display: none; }
+  .alarm { opacity: .5; transform: scale(1.12); }
+}
+/* Loops pause while the tab is hidden. */
+[data-hidden-tab] .orrery-backdrop, [data-hidden-tab] .flow-dot, [data-hidden-tab] .alarm { animation-play-state: paused; }

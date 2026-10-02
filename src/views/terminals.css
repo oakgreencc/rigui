@@ -1,0 +1,19 @@
+.terms { min-height: 100vh; }
+.term-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 420px), 1fr)); gap: 16px; }
+.term { display: grid; grid-template-rows: auto 1fr auto; border: 1px solid var(--line); background: var(--surface); min-width: 0; }
+.term[data-tone="danger"] { border-color: var(--danger); }
+.term[data-tone="warn"] { border-color: var(--warn); }
+.term[data-focus] { outline: 2px solid var(--accent); outline-offset: 2px; }
+.term header { display: grid; grid-template-columns: 8px minmax(0, 1fr); column-gap: 10px; row-gap: 1px; align-items: baseline; padding: 10px 12px 9px; border-bottom: 1px solid var(--line); }
+.term-name { grid-column: 2; justify-self: start; background: none; border: 0; padding: 0; color: var(--fg); font: 600 13px var(--mono); text-align: left; max-width: 100%; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.term-name:hover { color: var(--accent); text-decoration: underline; text-underline-offset: 3px; }
+.term-meta { grid-column: 2; font-size: 12px; color: var(--md); }
+.term[data-tone="danger"] .term-meta { color: var(--danger); font-weight: 600; }
+.term[data-tone="warn"] .term-meta { color: var(--warn); font-weight: 600; }
+.term pre {
+  margin: 0; padding: 12px 14px; min-height: 180px; max-height: 240px; overflow: auto; background: var(--terminal-bg); color: var(--terminal-fg);
+  font: 12px/1.55 var(--mono); white-space: pre-wrap; overflow-wrap: anywhere;
+}
+.term pre:focus-visible { outline-offset: -2px; }
+.term .cmd { margin: 0; border: 0; border-top: 1px solid var(--line); }
+.term-note { margin: 18px 0 0; }

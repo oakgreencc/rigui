@@ -1,0 +1,28 @@
+{
+  "default": "brick-kiln",
+  "presets": [
+    {
+      "id": "brick-kiln",
+      "label": "Brick kiln",
+      "extends": "ogcc",
+      "dark": {
+        "--bg": "oklch(18% 0.025 35)",
+        "--surface": "oklch(21% 0.03 35)",
+        "--surface-2": "oklch(24.5% 0.035 35)",
+        "--shadow": "oklch(30% 0.05 35)",
+        "--line": "oklch(28% 0.03 35)",
+        "--line-strong": "oklch(37% 0.035 35)",
+        "--accent": "oklch(76% 0.11 55)",
+        "--accent-fill": "oklch(62% 0.13 45)",
+        "--accent-tint": "oklch(27% 0.05 45)",
+        "--focus": "oklch(76% 0.11 55)"
+      },
+      "light": {
+        "--accent": "oklch(48% 0.13 45)",
+        "--accent-fill": "oklch(52% 0.14 45)",
+        "--accent-tint": "oklch(93% 0.04 45)",
+        "--focus": "oklch(48% 0.13 45)"
+      }
+    }
+  ]
+}
