@@ -1,12 +1,12 @@
-import { useEffect, useMemo, useRef, useState } from "react";
-import { useAct, useAttention, useAttentionDetail, usePrompts, useTopology } from "../api/hooks";
+import { useEffect, useMemo, useRef, useState, type ReactNode } from "react";
+import { useAct, useAttention, useAttentionDetail, useHumanDone, usePrompts, useQitemTrail, useTopology } from "../api/hooks";
 import { ACTIONS, type ActionDef } from "../api/actions";
 import type { ActInput } from "../api/source";
-import type { AttentionDetail, AttentionItem, MissionControlVerb, TerminalView } from "../api/types";
+import type { AttentionDetail, AttentionItem, HumanDone, MissionControlVerb, TerminalView } from "../api/types";
 import { ListGroup, SplitView } from "../components/SplitView";
-import { Chip, Cmd, Empty, Facts, QueryState, Timeline, useKeys, useToast } from "../components/primitives";
+import { Chip, Cmd, Empty, Facts, QueryState, Segmented, Timeline, useKeys, useToast } from "../components/primitives";
 import { useRig } from "../components/Shell";
-import { age, clock, isHuman, minutesSince, shortSession } from "../lib/format";
+import { age, clock, isHuman, minutesSince, shortSession, toDate } from "../lib/format";
 import { navigate, useRoute } from "../lib/router";
 import type { Tone } from "../lib/status";
 import "./attention.css";
@@ -54,7 +54,20 @@ const seenKey = "rigui.seen";
 const readSeen = (): string[] => { try { return JSON.parse(localStorage.getItem(seenKey) || "[]"); } catch { return []; } };
 const writeSeen = (v: string[]) => { try { localStorage.setItem(seenKey, JSON.stringify(v.slice(-200))); } catch { /* storage blocked */ } };
 
+type Show = "open" | "done";
+
+/** The inbox: what is waiting on a human (Open), and human work already finished (Done). */
 export default function Attention() {
+  const route = useRoute();
+  const show: Show = route.query.get("show") === "done" ? "done" : "open";
+  const switcher = (
+    <Segmented<Show> label="Show" value={show} options={[{ value: "open", label: "Open" }, { value: "done", label: "Done" }]}
+      onChange={(s) => navigate("attention", null, { replace: true, query: { show: s === "done" ? "done" : null } })} />
+  );
+  return show === "done" ? <InboxDone head={switcher} /> : <InboxOpen head={switcher} />;
+}
+
+function InboxOpen({ head }: { head: ReactNode }) {
   const q = useAttention();
   const prompts = usePrompts();
   const route = useRoute();
@@ -63,6 +76,8 @@ export default function Attention() {
   const [done, setDone] = useState<string[]>([]); // resolved in this session, hidden while the write lands
   const [seen, setSeen] = useState<string[]>(readSeen);
   const [pending, setPending] = useState<Pending | null>(null);
+  const pendingRef = useRef<Pending | null>(null);
+  pendingRef.current = pending;
   const [detailOpen, setDetailOpen] = useState(!!route.id);
   const timer = useRef<number>(undefined);
 
@@ -100,7 +115,7 @@ export default function Attention() {
     setPending(null);
     toast("Undone. Nothing was sent.");
   };
-  useEffect(() => () => clearTimeout(timer.current), []);
+  useEffect(() => () => { clearTimeout(timer.current); if (pendingRef.current) commit(pendingRef.current); }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
   const primary = useRef<() => void>(undefined);
   const hold = useRef<() => void>(undefined);
@@ -135,7 +150,7 @@ export default function Attention() {
 
   const sel = live[selIdx];
   return (
-    <SplitView id="attention" title="Attention" count={q.data ? (actions ? `${actions} waiting on you` : "clear") : undefined}
+    <SplitView id="attention" title="Inbox" head={head} count={q.data ? (actions ? `${actions} waiting` : "clear") : undefined}
       list={list} detail={detailOpen && !!sel} onBack={() => setDetailOpen(false)}
       foot={<><span><kbd>J</kbd><kbd>K</kbd> move</span><span><kbd>E</kbd> primary</span><span><kbd>H</kbd> hold</span><span><kbd>U</kbd> undo</span></>}
       pane={sel?.g === "prompt"
@@ -143,6 +158,102 @@ export default function Attention() {
         : sel
         ? <Pane key={sel.i.id} item={sel.i} group={sel.g} detail={detail.data ?? null} loading={detail.isPending} onResolve={resolve} primaryRef={primary} holdRef={hold} />
         : <AllClear sources={q.data?.sources ?? []} />} />
+  );
+}
+
+const VERB: Record<string, { label: string; tone: Tone | "info" }> = {
+  approve: { label: "Approved", tone: "ok" }, resolve: { label: "Answered", tone: "ok" }, deny: { label: "Denied", tone: "idle" },
+  route: { label: "Routed", tone: "info" }, handoff: { label: "Handed off", tone: "info" }, annotate: { label: "Noted", tone: "info" },
+  hold: { label: "Held", tone: "warn" }, drop: { label: "Dropped", tone: "idle" },
+  done: { label: "Closed", tone: "idle" }, "handed-off": { label: "Handed off", tone: "info" }, denied: { label: "Denied", tone: "idle" },
+  canceled: { label: "Canceled", tone: "idle" }, failed: { label: "Failed", tone: "danger" },
+};
+const verbOf = (d: HumanDone) => (d.byAgent ? { label: `${VERB[d.verb]?.label ?? d.verb} by an agent`, tone: "warn" as const } : VERB[d.verb] ?? { label: d.verb, tone: "idle" as const });
+
+function dayOf(ts: string) {
+  const d = toDate(ts);
+  if (!d) return "Earlier";
+  const days = Math.floor((new Date().setHours(0, 0, 0, 0) - new Date(d).setHours(0, 0, 0, 0)) / 86_400_000);
+  return days === 0 ? "Today" : days === 1 ? "Yesterday" : d.toLocaleDateString([], { weekday: "short", month: "short", day: "numeric" });
+}
+
+function InboxDone({ head }: { head: ReactNode }) {
+  const q = useHumanDone();
+  const route = useRoute();
+  const [detailOpen, setDetailOpen] = useState(!!route.id);
+  const items = q.data ?? [];
+  const selId = route.id && items.some((x) => x.id === route.id) ? route.id : items[0]?.id ?? null;
+  const selIdx = items.findIndex((x) => x.id === selId);
+  const pick = (id: string, open = true) => { navigate("attention", id, { replace: true }); if (open) setDetailOpen(true); };
+  const move = (d: number) => { const n = items[Math.max(0, Math.min(items.length - 1, selIdx + d))]; if (n) pick(n.id, false); };
+  useKeys({ j: () => move(1), k: () => move(-1), enter: () => setDetailOpen(true) });
+
+  const agents = items.filter((x) => x.byAgent).length;
+  let last: string | null = null;
+  const list = (
+    <QueryState q={q}>
+      {items.map((d) => {
+        const day = dayOf(d.at);
+        const group = day !== last ? <ListGroup key={"g" + day} label={day} count={items.filter((x) => dayOf(x.at) === day).length} /> : null;
+        last = day;
+        const v = verbOf(d);
+        return [group, (
+          <button key={d.id} type="button" className="li li-att" aria-current={d.id === selId ? "true" : undefined} onClick={() => pick(d.id)}>
+            <span className="li-title">{d.subject}</span>
+            <span className="age">{clock(d.at)}</span>
+            <span className="li-ref"><span className="li-k" data-tone={v.tone}>{v.label}</span>{d.actor ? shortSession(d.actor) : "no console action"}</span>
+          </button>
+        )];
+      })}
+      {!items.length && <p className="list-empty">No finished human work yet.</p>}
+    </QueryState>
+  );
+
+  const sel = items[selIdx];
+  return (
+    <SplitView id="attention" title="Inbox" head={head} count={q.data ? (agents ? `${agents} by an agent` : `${items.length} done`) : undefined}
+      list={list} detail={detailOpen && !!sel} onBack={() => setDetailOpen(false)}
+      foot={<span><kbd>J</kbd><kbd>K</kbd> move</span>}
+      pane={sel ? <DonePane key={sel.id} d={sel} /> : (
+        <Empty title="Nothing finished yet.">
+          <p>Approvals, answers, routes and holds on items for a human seat land here once they are made, with who made them. Items an agent cleared on a human's behalf are marked.</p>
+        </Empty>
+      )} />
+  );
+}
+
+function DonePane({ d }: { d: HumanDone }) {
+  const t = useQitemTrail(d.qitemId);
+  const v = verbOf(d);
+  const qitem = t.data?.qitem ?? null;
+  const facts: [string, ReactNode][] = [
+    ["Done by", d.actor ? <span className="mono">{d.actor}</span> : "closed without a console action"],
+    ["For", d.humanSeat ? <span className="mono">{d.humanSeat}</span> : "—"],
+  ];
+  if (d.from) facts.push(["From", <span className="mono">{d.from}</span>]);
+  if (d.note) facts.push([d.verb === "resolve" ? "Decision" : "Note", d.note]);
+  facts.push(["When", <>{clock(d.at)} · {age(d.at)} ago</>]);
+  if (qitem) facts.push(["Item now", qitem.state]);
+  else if (d.after) facts.push(["Left it", d.after]);
+
+  return (
+    <article className="att-pane" aria-busy={t.isPending || undefined}>
+      <header className="pane-h">
+        <h2>{d.subject}</h2>
+        <p className="pane-meta"><Chip tone={v.tone}>{v.label}</Chip><span className="mono">{d.qitemId}</span></p>
+      </header>
+      {d.byAgent && (
+        <p className="why tone-warn">{shortSession(d.actor)} is an agent and cleared this on your behalf. The daemon allows it; check that it was meant.</p>
+      )}
+      {qitem?.body && <p className="why">{qitem.body}</p>}
+      <Facts rows={facts} />
+      {t.data && t.data.transitions.length > 0 && (
+        <>
+          <h3 className="sec">History</h3>
+          <Timeline items={t.data.transitions.map((x) => ({ at: clock(x.ts), text: <>{x.state} · {x.note ?? ""} <span className="mono">{shortSession(x.actor)}</span></>, tone: x.state === "blocked" ? "human" : undefined }))} />
+        </>
+      )}
+    </article>
   );
 }
 

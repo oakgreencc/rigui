@@ -149,6 +149,24 @@ export interface AttentionRead {
 }
 
 /** The console's reading of one attention item: the qitem behind it plus what the human can do. */
+/**
+ * Finished human work: a Mission Control action on an item for (or blocked on) a human seat, or a human-bound item
+ * that closed without one. Folded by the console from /api/mission-control/audit and closed queue items.
+ */
+export interface HumanDone {
+  id: string;                // actionId, or "closed:<qitemId>"
+  at: string;
+  verb: string;              // approve | deny | route | resolve | … or the closing state
+  actor: string | null;      // null when the item closed without a console action
+  byAgent: boolean;          // an agent acted on a human's item
+  humanSeat: string | null;  // the human seat it was addressed to or blocked on
+  qitemId: string;
+  subject: string;
+  from: string | null;
+  note: string | null;
+  after: string | null;      // the item's state once the action landed
+}
+
 export interface AttentionDetail {
   item: AttentionItem;
   qitem: QueueItem | null;

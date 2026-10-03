@@ -229,7 +229,7 @@ function ThemeTab() {
         <div className="tokens">
           {Object.keys(TOKEN_DOCS).map((k) => {
             const v = (t.overrides as Tokens)[k as `--${string}`] ?? base[k as `--${string}`] ?? "";
-            const kind = k === "--mark" ? "mark" : k.startsWith("--backdrop") ? "value" : k.includes("font") || k.includes("mono") ? "type" : "color";
+            const kind = k === "--mark" ? "mark" : k.startsWith("--backdrop") && k !== "--backdrop-color" ? "value" : k.includes("font") || k.includes("mono") ? "type" : "color";
             return (
               <button key={k} type="button" className="tok-row" title="Add to overrides" onClick={() => {
                 const cur = (() => { try { return JSON.parse(draft || "{}"); } catch { return {}; } })();

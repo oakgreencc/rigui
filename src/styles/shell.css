@@ -9,9 +9,8 @@
 .brand-row { display: flex; align-items: center; justify-content: space-between; }
 .side-close { display: none; }
 .brand { display: flex; align-items: center; gap: 10px; height: 58px; color: var(--fg); text-decoration: none; }
-.brand .mark { width: 20px; height: 20px; flex: none; color: var(--accent-fill); }
-/* The OGCC wordmark: light weight, wide tracking, uppercase. */
-.brand b { font-weight: 300; font-size: 15px; letter-spacing: 0.25em; text-transform: uppercase; color: var(--fg); }
+/* The wordmark: heavy, uppercase, tracked just enough to hold its width. */
+.brand b { font-weight: 800; font-size: 21px; line-height: 1; letter-spacing: 0.12em; text-transform: uppercase; color: var(--fg); }
 
 .rig-pick { display: grid; gap: 4px; padding: 10px 0 12px; }
 .rig-pick label { font-size: 11px; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; color: var(--md); }
@@ -56,7 +55,7 @@ nav.nav hr { border: 0; border-top: 1px solid var(--line); margin: 8px 2px; }
 .split { display: grid; grid-template-columns: clamp(280px, 30%, 380px) minmax(0, 1fr); height: 100vh; }
 .list-col { display: flex; flex-direction: column; min-height: 0; background: var(--surface); border-right: 1px solid var(--line); }
 .list-head { flex: none; height: 58px; display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 0 16px; border-bottom: 1px solid var(--line); }
-.list-head h1 { font-size: 15px; font-weight: 700; }
+.list-head h1 { font-size: 15px; font-weight: 700; margin-right: auto; }
 .list-head small { font-size: 12px; color: var(--md); }
 .list-scroll { flex: 1; min-height: 0; overflow-y: auto; }
 .list-foot { flex: none; border-top: 1px solid var(--line); padding: 10px 16px; display: flex; gap: 10px 14px; flex-wrap: wrap; font-size: 12px; color: var(--md); }
@@ -124,7 +123,7 @@ nav.nav hr { border: 0; border-top: 1px solid var(--line); margin: 8px 2px; }
   .side-close { display: inline-flex; margin-right: -8px; }
   .top { position: sticky; top: 0; z-index: 30; height: 52px; display: flex; align-items: center; gap: 8px; padding: 0 12px 0 6px; background: var(--surface); border-bottom: 1px solid var(--line); }
   .top .brand { height: auto; }
-  .top .brand b { font-size: 13px; }
+  .top .brand b { font-size: 17px; }
   .top .top-rig { margin-left: auto; font-size: 12px; color: var(--md); display: inline-flex; gap: 6px; align-items: center; min-width: 0; overflow: hidden; white-space: nowrap; }
   .top-att { display: inline-flex; align-items: center; gap: 5px; height: 36px; padding: 0 10px; border: 1px solid var(--line-strong); background: var(--surface); color: var(--md); font-size: 13px; font-weight: 600; }
   .top-att svg { width: 17px; height: 17px; }

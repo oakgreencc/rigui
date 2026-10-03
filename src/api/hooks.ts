@@ -27,6 +27,15 @@ export const useAttentionDetail = (id: string | null) => {
   const s = useSource();
   return useQuery({ queryKey: ["attention", "detail", id], queryFn: () => s.attentionDetail(id!), enabled: !!id });
 };
+/** Under the "attention" key so every event and action that refreshes the inbox refreshes this too. */
+export const useHumanDone = (enabled = true) => {
+  const s = useSource();
+  return useQuery({ queryKey: ["attention", "done"], queryFn: () => s.humanDone(), enabled, refetchInterval: SLOW });
+};
+export const useQitemTrail = (qitemId: string | null) => {
+  const s = useSource();
+  return useQuery({ queryKey: ["attention", "trail", qitemId], queryFn: () => s.qitemTrail(qitemId!), enabled: !!qitemId });
+};
 export const useQueue = (rig?: string) => { const s = useSource(); return useQuery({ queryKey: ["queue", rig], queryFn: () => s.queue(rig) }); };
 export const useRates = () => { const s = useSource(); return useQuery({ queryKey: ["rates"], queryFn: () => s.rates(), staleTime: 5 * 60_000 }); };
 export const useProjects = () => { const s = useSource(); return useQuery({ queryKey: ["projects"], queryFn: () => s.projects() }); };

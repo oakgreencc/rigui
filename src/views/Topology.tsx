@@ -156,7 +156,7 @@ function Detail({ id, topo, mission, onPick }: { id: string; topo: RigTopology; 
         <h3 className="sec">Hand the packet to a live seat</h3>
         <Cmd text={`rig workflow route ${mission.workflow.instanceId} --packet ${step.packetQitemId} --to ${topo.seats.find((s) => s.role === step.role && seatStatus(s).tone !== "danger")?.canonicalSessionName ?? "<seat>"}`} />
       </>}
-      {isHuman(step.ownerSession) && <button type="button" className="btn primary" onClick={() => navigate("attention")}>Open Attention</button>}
+      {isHuman(step.ownerSession) && <button type="button" className="btn primary" onClick={() => navigate("attention")}>Open Inbox</button>}
     </div>
   );
 }
@@ -178,7 +178,7 @@ function SeatDetail({ s, topo, mission, onPick }: { s: Seat; topo: RigTopology; 
         <p className="d-sub">seat in {pod?.label} · <span className="mono">{s.canonicalSessionName}</span></p>
       </header>
       {st.tone === "danger" && <p className="why tone-danger"><b>{st.reason}.</b> Its work is stuck with it until the seat is relaunched or the work is handed to another seat.</p>}
-      {ask && <button type="button" className="btn primary" onClick={() => navigate("attention", ask)}>Open it in Attention</button>}
+      {ask && <button type="button" className="btn primary" onClick={() => navigate("attention", ask)}>Open it in Inbox</button>}
       <Facts rows={[
         ["Status", <Chip tone={st.tone}>{st.reason}</Chip>],
         ["Runtime", `${RUNTIME[s.runtime] ?? s.runtime}${s.model ? ` · ${s.model}` : ""}`],

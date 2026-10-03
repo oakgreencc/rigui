@@ -1,8 +1,9 @@
 // The one seam between the console and OpenRig. Views never fetch; they ask a DataSource.
 // `live` talks to the daemon (same origin, /api/*); `sample` serves the fixtures. main.tsx picks one at boot.
 import * as fx from "./fixtures";
+import { isHuman } from "../lib/format";
 import type {
-  ActionResult, AttentionDetail, AttentionRead, HealthFinding, Healthz, HostEntry, MissionControlVerb, MissionMap,
+  ActionResult, AttentionDetail, AttentionRead, HumanDone, QueueTransition, HealthFinding, Healthz, HostEntry, MissionControlVerb, MissionMap,
   Project, PsEntry, QueueItem, QueueRates, RigTopology, Seat, SpecEntry, TerminalView, WatchdogHistoryEntry, WatchdogJob,
 } from "./types";
 
@@ -25,6 +26,10 @@ export interface DataSource {
   attention(): Promise<AttentionRead>;
   attentionDetail(id: string): Promise<AttentionDetail | null>;
   act(input: ActInput): Promise<ActionResult>;
+  /** Human work already finished, newest first. */
+  humanDone(): Promise<HumanDone[]>;
+  /** One queue item and its transitions, open or closed. */
+  qitemTrail(qitemId: string): Promise<{ qitem: QueueItem | null; transitions: QueueTransition[] }>;
   queue(rigName?: string): Promise<QueueItem[]>;
   rates(): Promise<QueueRates>;
   projects(): Promise<Project[]>;
@@ -42,6 +47,7 @@ const later = <T,>(v: T, ms = 120) => new Promise<T>((r) => setTimeout(() => r(s
 export function sampleSource(): DataSource {
   // Actions mutate the fixtures so the console behaves end to end without a daemon.
   const resolved = new Set<string>();
+  const log: HumanDone[] = [...fx.humanDone];
   return {
     kind: "sample",
     health: () => later(fx.healthz),
@@ -55,8 +61,17 @@ export function sampleSource(): DataSource {
     attentionDetail: (id) => later(fx.attentionDetail(id)),
     act: async (input) => {
       resolved.add(`queue:${input.qitemId}`);
-      return later({ actionId: `mca-${Date.now()}`, verb: input.verb, qitemId: input.qitemId, createdQitemId: null, auditedAt: new Date().toISOString() }, 200);
+      const res = { actionId: `mca-${Date.now()}`, verb: input.verb, qitemId: input.qitemId, createdQitemId: null, auditedAt: new Date().toISOString() };
+      const item = fx.queue.find((x) => x.qitemId === input.qitemId);
+      log.push({
+        id: res.actionId, at: res.auditedAt, verb: input.verb, actor: "human@kernel", byAgent: false, humanSeat: item?.blockedOn ?? item?.destinationSession ?? "human@kernel",
+        qitemId: input.qitemId, subject: item?.summary ?? input.qitemId, from: item?.sourceSession ?? null,
+        note: input.reason ?? input.decision ?? input.annotation ?? null, after: input.verb === "hold" ? "blocked" : input.verb === "resolve" ? "in-progress" : "done",
+      });
+      return later(res, 200);
     },
+    humanDone: () => later([...log].sort((a, b) => b.at.localeCompare(a.at))),
+    qitemTrail: (id) => later({ qitem: fx.queue.find((x) => x.qitemId === id) ?? null, transitions: fx.trail(id) }),
     queue: () => later(fx.queue),
     rates: () => later(fx.rates),
     projects: () => later(fx.projects),
@@ -74,6 +89,11 @@ export class DaemonError extends Error {
   /** 503 with a hint is the daemon saying "not set up", not "broken". Views render a setup state. */
   get isSetup() { return this.status === 503 && !!this.hint; }
 }
+
+/** A queue transition row. The daemon sends camelCase; older builds sent snake_case. */
+const transition = (t: any): QueueTransition => ({
+  ts: t.ts, state: t.state, note: t.transitionNote ?? t.transition_note ?? null, actor: t.actorSession ?? t.actor_session ?? null,
+});
 
 async function get<T>(path: string): Promise<T> {
   const res = await fetch(path, { headers: { accept: "application/json" } });
@@ -174,10 +194,39 @@ export function liveSource(): DataSource {
       const tr = qid ? await get<any[]>(`/api/queue/${qid}/transitions`).catch(() => []) : [];
       return {
         item, qitem, lines: read.detail?.lines ?? [],
-        transitions: tr.map((t) => ({ ts: t.ts, state: t.state, note: t.transition_note ?? null, actor: t.actor_session })),
+        transitions: tr.map(transition),
       };
     },
     act: (input) => post<ActionResult>("/api/mission-control/action", { ...input, actorSession: identity.actor }),
+    humanDone: async () => {
+      // The audit log knows who acted; closed qitems catch human-bound items that closed without an action.
+      const [audit, closed] = await Promise.all([
+        get<{ rows: any[] }>("/api/mission-control/audit?limit=200").then((r) => r.rows).catch(() => [] as any[]),
+        get<QueueItem[]>("/api/queue/list?state=done,handed-off,denied,canceled,failed&limit=500").catch(() => [] as QueueItem[]),
+      ]);
+      // A closed item drops its blocker, so the human seat is read from the state before the action.
+      const seatOf = (s: any): string | null => [s?.blockedOn, s?.closureTarget, s?.destinationSession].find((x) => isHuman(x)) ?? null;
+      const rows = audit.filter((r) => isHuman(r.actorSession) || seatOf(r.beforeState));
+      const byId = new Map(closed.map((x) => [x.qitemId, x]));
+      const missing = [...new Set(rows.map((r) => r.qitemId as string))].filter((id) => !byId.has(id)).slice(0, 50);
+      for (const x of await Promise.all(missing.map((id) => get<QueueItem>(`/api/queue/${id}`).catch(() => null)))) if (x) byId.set(x.qitemId, x);
+      const subject = (id: string) => { const x = byId.get(id); return x?.summary || x?.body?.split("\n")[0] || id; };
+      const acted = new Set(rows.map((r) => r.qitemId));
+      const out: HumanDone[] = rows.map((r) => ({
+        id: r.actionId, at: r.actedAt, verb: r.actionVerb, actor: r.actorSession, byAgent: !isHuman(r.actorSession), humanSeat: seatOf(r.beforeState),
+        qitemId: r.qitemId, subject: subject(r.qitemId), from: r.beforeState?.sourceSession ?? null, note: r.reason ?? r.annotation ?? null, after: r.afterState?.state ?? null,
+      }));
+      for (const x of closed) {
+        if (!isHuman(x.destinationSession) || acted.has(x.qitemId)) continue;
+        out.push({ id: `closed:${x.qitemId}`, at: x.tsUpdated, verb: x.state, actor: null, byAgent: false, humanSeat: x.destinationSession,
+          qitemId: x.qitemId, subject: subject(x.qitemId), from: x.sourceSession, note: x.closureReason, after: x.state });
+      }
+      return out.sort((a, b) => b.at.localeCompare(a.at));
+    },
+    qitemTrail: async (qid) => {
+      const [qitem, tr] = await Promise.all([get<QueueItem>(`/api/queue/${qid}`).catch(() => null), get<any[]>(`/api/queue/${qid}/transitions`).catch(() => [])]);
+      return { qitem, transitions: tr.map(transition) };
+    },
     queue: (rig) => get<QueueItem[]>(`/api/queue/list?activeOnly=1${rig ? `&rig=${rig}` : ""}`),
     // The daemon has no rates endpoint; the console folds recent transitions into weeks.
     rates: async () => foldRates(await get<any[]>("/api/queue/recent-transitions?scope=instance&limit=2000").catch(() => [])),

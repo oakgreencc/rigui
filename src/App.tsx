@@ -18,7 +18,7 @@ const VIEWS: Record<ViewId, React.ComponentType> = {
 };
 
 const TITLES: Record<ViewId, string> = {
-  topology: "Topology", attention: "Attention", backlog: "Backlog", projects: "Projects", specs: "Specs", terminals: "Terminals", system: "System",
+  topology: "Topology", attention: "Inbox", backlog: "Backlog", projects: "Projects", specs: "Specs", terminals: "Terminals", system: "System",
 };
 
 export function App({ qc }: { qc: QueryClient }) {

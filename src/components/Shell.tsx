@@ -6,7 +6,7 @@ import { ago } from "../lib/format";
 
 const until = (at: number) => { const m = Math.round((at - Date.now()) / 60_000); return m <= 0 ? "due now" : m < 60 ? `in ${m}m` : `in ${Math.round(m / 60)}h`; };
 import { seatStatus, type Tone } from "../lib/status";
-import { Icon, Mark, type IconName } from "./Icon";
+import { Icon, type IconName } from "./Icon";
 import { Lamp } from "./primitives";
 
 // ---------- Rig selection: one rig in focus, remembered per viewer ----------
@@ -33,7 +33,7 @@ export const LIFECYCLE: Record<RigLifecycleState, { tone: Tone; label: string }>
 
 const NAV: { id: ViewId; label: string; icon: IconName }[] = [
   { id: "topology", label: "Topology", icon: "topology" },
-  { id: "attention", label: "Attention", icon: "attention" },
+  { id: "attention", label: "Inbox", icon: "attention" },
   { id: "backlog", label: "Backlog", icon: "backlog" },
   { id: "projects", label: "Projects", icon: "projects" },
   { id: "specs", label: "Specs", icon: "specs" },
@@ -128,7 +128,7 @@ export function Shell({ children }: { children: ReactNode }) {
         <div className="side-top">
           <div className="brand-row">
             <a className="brand" href="/topology" onClick={(e) => { e.preventDefault(); go("topology"); }}>
-              <Mark className="mark" /><b>Rigui</b>
+              <b>Rigui</b>
             </a>
             <button type="button" className="icon-btn side-close" onClick={() => setDrawer(false)} aria-label="Close menu"><Icon name="close" /></button>
           </div>
@@ -161,11 +161,11 @@ export function Shell({ children }: { children: ReactNode }) {
       <div className="work">
         <header className="top">
           <button type="button" className="icon-btn" onClick={() => setDrawer(true)} aria-label="Open menu" aria-expanded={drawer} aria-controls="side"><Icon name="menu" /></button>
-          <span className="brand"><Mark className="mark" /><b>Rigui</b></span>
+          <span className="brand"><b>Rigui</b></span>
           {rig && <span className="top-rig">{life && <Lamp tone={life.tone} />}{rig.name}</span>}
           {/* The primary action stays in the phone's first viewport. */}
           <button type="button" className="top-att" data-tone={counts.attention?.tone} onClick={() => go("attention")}
-            aria-label={`Attention: ${counts.attention?.text ?? "loading"}`}>
+            aria-label={`Inbox: ${counts.attention?.text ?? "loading"}`}>
             <Icon name="attention" /><span>{counts.attention?.text ?? ""}</span>
           </button>
         </header>

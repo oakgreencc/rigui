@@ -68,7 +68,7 @@ export function Orrery({ scene, narrow, selected, youCount, onPick, onSun, toolt
       <svg viewBox={`${-pad} ${-pad} ${pad * 2} ${pad * 2}`} role="group" aria-label={`${scene.lit === "rig" ? "Rig" : "Mission"} map`}>
         <circle className="orbit" r={R.station} />
         {scene.lit === "rig" && <circle className="orbit faint" r={R.satellite} />}
-        <circle className="orbit track" r={R.track} />
+        {scene.bodies.some((b) => b.place === "track") && <circle className="orbit track" r={R.track} />}
 
         <g className="links" key={`l-${scene.lit}`}>
           {scene.links.map((l) => (
@@ -87,7 +87,7 @@ export function Orrery({ scene, narrow, selected, youCount, onPick, onSun, toolt
           ))}
         </g>
 
-        <g className="sun" role="button" tabIndex={0} aria-label={youCount ? `You: ${youCount} waiting on you. Open Attention.` : "You: nothing waiting. Open Attention."}
+        <g className="sun" role="button" tabIndex={0} aria-label={youCount ? `You: ${youCount} waiting on you. Open Inbox.` : "You: nothing waiting. Open Inbox."}
           data-tone={sunTone} onClick={onSun} onKeyDown={(e) => { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); onSun(); } }}>
           <circle className="sun-hit" r={narrow ? 80 : 58} />
           <foreignObject x={narrow ? -36 : -26} y={narrow ? -50 : -38} width={narrow ? 72 : 52} height={narrow ? 72 : 52}>
@@ -147,19 +147,19 @@ function BodyView({ b, shadow, narrow, selected, hovered, dim, onPick, onHover }
       {b.place === "station" && (
         <>
           <rect className="b-lamp" x={-w / 2 + 12} y={-h / 2 + (narrow ? 20 : 14)} width={narrow ? 12 : 8} height={narrow ? 12 : 8} />
-          <text className="b-name" x={-w / 2 + (narrow ? 32 : 27)} y={-h / 2 + (narrow ? 32 : 22)}>{trunc(b.name, narrow ? 9 : 12)}</text>
-          {b.aside && <text className="b-aside" x={w / 2 - 11} y={-h / 2 + (narrow ? 32 : 22)}>{b.aside}</text>}
+          <text className="b-name" x={-w / 2 + (narrow ? 32 : 27)} y={-h / 2 + (narrow ? 32 : 22)}>{trunc(b.name, narrow ? 8 : 9)}</text>
           {/* The reason is the sentence the map exists to say: two lines, not an ellipsis. */}
-          <text className="b-sub" x={-w / 2 + 12} y={-h / 2 + (narrow ? 64 : 42)}>
-            {wrap2(b.sub, narrow ? 15 : 21).map((l, i) => <tspan key={i} x={-w / 2 + 12} dy={i ? (narrow ? 22 : 15) : 0}>{l}</tspan>)}
+          <text className="b-sub" x={-w / 2 + 12} y={-h / 2 + (narrow ? 66 : 45)}>
+            {wrap2(b.sub, narrow ? 14 : 15).map((l, i) => <tspan key={i} x={-w / 2 + 12} dy={i ? (narrow ? 22 : 15) : 0}>{l}</tspan>)}
           </text>
+          {b.aside && <text className="b-aside" x={w / 2 - 11} y={h / 2 - (narrow ? 16 : 12)}>{b.aside}</text>}
         </>
       )}
       {b.place === "satellite" && !narrow && (
         <>
-          <rect className="b-lamp" x={-w / 2 + 10} y={-7} width={7} height={7} />
-          <text className="b-name sm" x={-w / 2 + 23} y={-1}>{trunc(b.name, 11)}</text>
-          <text className="b-sub sm" x={-w / 2 + 10} y={14}>{trunc(b.sub, 17)}</text>
+          <rect className="b-lamp" x={-w / 2 + 10} y={-h / 2 + 10} width={7} height={7} />
+          <text className="b-name sm" x={-w / 2 + 10} y={4}>{trunc(b.name, 8)}</text>
+          <text className="b-sub sm" x={-w / 2 + 10} y={20}>{trunc(b.sub, 11)}</text>
         </>
       )}
       {b.place === "track" && (

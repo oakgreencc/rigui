@@ -136,7 +136,7 @@ function SliceRow({ s, open, onToggle }: { s: Slice; open: boolean; onToggle(): 
           </div>
           <div className="meter-line"><i style={{ width: `${pct * 100}%` }} /></div>
           <div className="actions">
-            {s.needsYou > 0 && <button type="button" className="btn primary" onClick={() => navigate("attention")}>Open Attention</button>}
+            {s.needsYou > 0 && <button type="button" className="btn primary" onClick={() => navigate("attention")}>Open Inbox</button>}
             <Cmd text={`rig review slice ${s.name}`} />
           </div>
         </div>

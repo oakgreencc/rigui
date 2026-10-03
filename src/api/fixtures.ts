@@ -1,7 +1,7 @@
 // Sample data. Shapes match the daemon; every name, id, count and line here is synthetic.
 // Pods and members follow OpenRig's demo/rig.yaml; the mission follows its release-train naming.
 import type {
-  AttentionDetail, AttentionRead, HealthFinding, Healthz, HostEntry, MissionMap, Project, PsEntry,
+  AttentionDetail, AttentionRead, HealthFinding, Healthz, HumanDone, HostEntry, MissionMap, Project, PsEntry,
   QueueItem, QueueRates, QueueTransition, RigTopology, Seat, SpecEntry, TerminalView, WatchdogHistoryEntry, WatchdogJob,
 } from "./types";
 
@@ -186,6 +186,18 @@ const transitions: Record<string, QueueTransition[]> = {
   ],
   "qitem-20260930120040-hostpair": [{ ts: ago(64), state: "pending", note: "pair request from vps-fra1", actor: "daemon@kernel" }],
 };
+
+export const trail = (qid: string): QueueTransition[] => transitions[qid] ?? [];
+
+/** Synthetic finished human work, including one item an agent resolved on a human's behalf. */
+export const humanDone: HumanDone[] = [
+  { id: "mca-sample-3", at: ago(95), verb: "approve", actor: "human@kernel", byAgent: false, humanSeat: "human@kernel", qitemId: "qitem-20260930113010-a1b2c3d4",
+    subject: "Approve release notes for 0.5.1", from: "docs-writer@demo-rig", note: "approved in console", after: "done" },
+  { id: "mca-sample-2", at: ago(260), verb: "resolve", actor: "orch-lead@demo-rig", byAgent: true, humanSeat: "human@kernel", qitemId: "qitem-20260930091200-e5f6a7b8",
+    subject: "Which retry budget for the flaky e2e suite?", from: "qa-runner@demo-rig", note: "kept at 2, per last week's call", after: "in-progress" },
+  { id: "closed:qitem-20260929170000-c9d0e1f2", at: ago(1440), verb: "canceled", actor: null, byAgent: false, humanSeat: "human@kernel", qitemId: "qitem-20260929170000-c9d0e1f2",
+    subject: "Confirm staging data reset", from: "ops@demo-rig", note: "superseded", after: "canceled" },
+];
 
 export function attentionDetail(id: string): AttentionDetail | null {
   const item = attention.items.find((i) => i.id === id);

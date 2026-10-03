@@ -32,11 +32,12 @@ kbd {
   mask: var(--mark) center / contain no-repeat; -webkit-mask: var(--mark) center / contain no-repeat;
 }
 
-/* The mark turning in shadow behind a map, 1.5 rpm by default. Centred on the pane in both axes, sized off its short side. */
+/* The mark turning behind a map, 1.5 rpm by default. Centred on the pane in both axes, sized off its short side.
+   On dark it is recessed below the ground, so the raised cards above it never share its tone. */
 .backdrop { position: absolute; inset: 0; z-index: -1; overflow: hidden; pointer-events: none; container-type: size; }
 .backdrop .brand-mark {
   position: absolute; left: 50%; top: 50%; width: calc(var(--backdrop-scale, 1.3) * 100cqmin); translate: -50% -50%;
-  color: var(--shadow); opacity: var(--backdrop-opacity, .2);
+  color: var(--backdrop-color, var(--shadow)); opacity: var(--backdrop-opacity, .2);
 }
 @media (prefers-reduced-motion: no-preference) { .backdrop .brand-mark { animation: clockwork var(--backdrop-period, 40s) linear infinite; } }
 [data-hidden-tab] .backdrop .brand-mark { animation-play-state: paused; }

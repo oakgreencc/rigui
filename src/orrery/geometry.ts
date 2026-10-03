@@ -2,10 +2,10 @@
 // The lit layer owns the inner orbit (stations) and, for the rig, a satellite orbit (seats).
 // The shadow layer collapses onto the outer track. Angles are degrees, 0 = three o'clock, clockwise.
 
-export const R = { station: 228, satellite: 350, track: 452 } as const;
+export const R = { station: 228, satellite: 380, track: 452 } as const;
 export const SIZE = {
-  station: { w: 140, h: 74 },
-  satellite: { w: 104, h: 40 },
+  station: { w: 116, h: 116 },
+  satellite: { w: 80, h: 80 },
   dot: { w: 16, h: 16 },
   track: { w: 78, h: 30 },
 } as const;
@@ -20,20 +20,16 @@ export function evenAngles(n: number, start = -90): number[] {
 }
 
 /**
- * Sectors sized by weight (seat count), so a big pod gets room for its satellites.
- * Returns each group's centre angle and the angles of its members.
+ * Equal sectors, one per group: centres sit 360/n apart (120° for 3, 90° for 4), first at `start`.
+ * Members fan around their group's centre, at most 19° apart and never past the sector.
+ * `counts` is the member count of each group.
  */
-export function sectors(weights: number[], start = -90, minWeight = 1.4): { centre: number; members: number[] }[] {
-  const w = weights.map((x) => Math.max(minWeight, x));
-  const total = w.reduce((a, b) => a + b, 0) || 1;
-  let a = start - (360 * w[0]!) / total / 2;
-  return w.map((wi, i) => {
-    const span = (360 * wi) / total;
-    const n = weights[i]!;
+export function sectors(counts: number[], start = -90): { centre: number; members: number[] }[] {
+  const span = 360 / Math.max(1, counts.length);
+  return counts.map((n, i) => {
+    const centre = start + span * i;
     const step = n > 0 ? Math.min(span / n, 19) : 0;
-    const centre = a + span / 2;
     const members = Array.from({ length: n }, (_, k) => centre + (k - (n - 1) / 2) * step);
-    a += span;
     return { centre, members };
   });
 }
