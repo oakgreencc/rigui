@@ -33,6 +33,7 @@ export const TOKEN_DOCS: Record<string, string> = {
   "--focus": "Keyboard focus ring",
   "--terminal-bg": "Terminal previews ground", "--terminal-fg": "Terminal previews text", "--terminal-accent": "Keys, prompts and highlights in terminal text",
   "--mark": "Brand mark as url(); a square SVG or PNG, used as a mask (sidebar, sun, backdrop)",
+  "--backdrop-color": "The turning mark's tone; keep it off the --surface lightness so cards read over it",
   "--backdrop-opacity": "Strength of the turning mark behind the map and ring; 0 hides it",
   "--backdrop-scale": "Backdrop size as a multiple of the pane's short side",
   "--backdrop-period": "Time for one backdrop turn",
@@ -64,7 +65,7 @@ export const OGCC: Preset = {
     "--bone": "oklch(85% 0.02 85)",
     "--focus": "oklch(73% 0.115 150)",
     "--terminal-bg": "oklch(15% 0.03 152)", "--terminal-fg": "oklch(85% 0.03 152)", "--terminal-accent": "oklch(73% 0.115 150)",
-    "--mark": OGCC_MARK, "--backdrop-opacity": ".2", "--backdrop-scale": "1.3", "--backdrop-period": "40s",
+    "--mark": OGCC_MARK, "--backdrop-color": "oklch(13% 0.03 152)", "--backdrop-opacity": ".45", "--backdrop-scale": "1.3", "--backdrop-period": "40s",
     "--font": "system-ui, -apple-system, BlinkMacSystemFont, \"Segoe UI\", sans-serif",
     "--mono": "ui-monospace, SFMono-Regular, Menlo, monospace",
   },
@@ -90,7 +91,7 @@ export const OGCC: Preset = {
     "--bone": "oklch(50% 0.02 85)",
     "--focus": "oklch(45% 0.115 150)",
     "--terminal-bg": "oklch(19.5% 0.03 152)", "--terminal-fg": "oklch(85% 0.03 152)", "--terminal-accent": "oklch(76% 0.11 150)",
-    "--mark": OGCC_MARK, "--backdrop-opacity": ".22", "--backdrop-scale": "1.3", "--backdrop-period": "40s",
+    "--mark": OGCC_MARK, "--backdrop-color": "oklch(86% 0.03 150)", "--backdrop-opacity": ".22", "--backdrop-scale": "1.3", "--backdrop-period": "40s",
     "--font": "system-ui, -apple-system, BlinkMacSystemFont, \"Segoe UI\", sans-serif",
     "--mono": "ui-monospace, SFMono-Regular, Menlo, monospace",
   },
@@ -108,6 +109,7 @@ export const COBALT: Preset = {
     "--accent": "oklch(76% 0.1 240)", "--accent-fill": "oklch(60% 0.12 245)", "--on-accent": "oklch(15% 0.03 250)",
     "--accent-tint": "oklch(27% 0.06 245)", "--focus": "oklch(76% 0.1 240)",
     "--terminal-bg": "oklch(15% 0.03 250)", "--terminal-fg": "oklch(85% 0.03 250)",
+    "--backdrop-color": "oklch(13% 0.03 250)",
   },
   light: {
     ...OGCC.light,
@@ -115,6 +117,7 @@ export const COBALT: Preset = {
     "--shadow": "oklch(87% 0.025 250)", "--line": "oklch(89% 0.015 250)", "--line-strong": "oklch(77% 0.025 250)",
     "--fg": "oklch(20% 0.03 250)", "--body": "oklch(29% 0.03 250)", "--md": "oklch(46% 0.03 250)",
     "--accent": "oklch(45% 0.12 245)", "--accent-fill": "oklch(50% 0.13 245)", "--accent-tint": "oklch(92% 0.04 245)", "--focus": "oklch(45% 0.12 245)",
+    "--backdrop-color": "oklch(87% 0.025 250)",
   },
 };
 
