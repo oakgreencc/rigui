@@ -1,14 +1,18 @@
 // A pushState router small enough to read: /<view>/<id?>. The daemon's SPA fallback serves index.html for any path.
+// A view is a core view or a plugin's id; anything else lands on Topology.
 import { useSyncExternalStore } from "react";
+import { PLUGINS } from "../plugins";
 
-export type ViewId = "topology" | "attention" | "backlog" | "projects" | "specs" | "terminals" | "system";
-export const VIEWS: ViewId[] = ["topology", "attention", "backlog", "projects", "specs", "terminals", "system"];
+export type CoreViewId = "topology" | "attention" | "backlog" | "projects" | "specs" | "terminals" | "system";
+export type ViewId = CoreViewId | (string & {});
+export const CORE_VIEWS: CoreViewId[] = ["topology", "attention", "backlog", "projects", "specs", "terminals", "system"];
+const KNOWN = new Set<string>([...CORE_VIEWS, ...PLUGINS.map((p) => p.id)]);
 
 export interface Route { view: ViewId; id: string | null; query: URLSearchParams }
 
 function parse(): Route {
   const [, v = "", ...rest] = location.pathname.split("/");
-  const view = (VIEWS as string[]).includes(v) ? (v as ViewId) : "topology";
+  const view = KNOWN.has(v) ? v : "topology";
   return { view, id: rest.length ? decodeURIComponent(rest.join("/")) : null, query: new URLSearchParams(location.search) };
 }
 

@@ -6,3 +6,7 @@ dist
 .impeccable/review/
 *.tsbuildinfo
 .claude/worktrees
+
+# Local secrets and paths (GitHub bridge credentials)
+.env.local
+.env.*.local

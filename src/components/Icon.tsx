@@ -32,6 +32,15 @@ export function Icon({ name, className, title }: { name: IconName; className?: s
   );
 }
 
+/** A glyph from raw path data in the same grammar: how a plugin brings its own icon. */
+export function Glyph({ d, className }: { d: string; className?: string }) {
+  return (
+    <svg className={className ?? "ico"} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.75" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+      <path d={d} />
+    </svg>
+  );
+}
+
 /** The theme's brand mark (OGCC's concentric rings by default), painted in currentColor through the --mark mask. */
 export function Mark({ className }: { className?: string }) {
   return <span className={className ? `brand-mark ${className}` : "brand-mark"} aria-hidden="true" />;

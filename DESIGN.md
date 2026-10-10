@@ -313,6 +313,11 @@ The Attention receipt: a Signal Tint bar that wipes in (clip-path, 320ms), state
 - **Brand mark:** a theme token, not a component constant. `--mark` holds a `url()` drawn as a CSS mask in currentColor, so a preset or `/theme.json` swaps the logo in the sidebar, the sun and the backdrop at once. The sidebar mark sits at 20px and the sun at 52px (72px on phones): present, not leading.
 - **Sun:** the OGCC mark in Signal Green at centre, "YOU" in the wordmark style, a waiting count beneath; turns Lavender when something is addressed to you.
 
+### Plugin tabs
+A plugin (`src/plugins.ts`, contract in `src/plugins/types.ts`) is a route, a nav row below the core views (after a hairline), a glyph in the same 24/1.75 stroke grammar, and a count that speaks in the same tones as core counts. Plugin views reuse the shell's head, tables, chips, drawer and `.detail` content; they never bring a second visual language.
+- **CI lanes:** time runs left to right with a Signal Green "now" line. A Brass step band above shows queue depth; below it one lane per runner (GitHub-hosted VMs share one) with job bars: passed in Well Green with a strong hairline (quiet), failed in Brick at 2px, running in Signal Tint, cancelled dashed. Hovering a bar marks its wait on the band. A stall (runs waiting, nothing running, no runner motion for 10m) is the one Brick banner above the "right now" sentences.
+- **Issue matrix:** one label namespace down, one across; each open issue is a 10px square mote toned by what it waits on (Lavender on you, Brass needs detail, Signal ready for an agent, Bone open, Cobalt on develop, pewter outline parked). Motes sort loudest first in a cell. The hold strip doubles as legend and filter; a readout line above the matrix names the hovered mote.
+
 ## Do's and Don'ts
 
 ### Do:

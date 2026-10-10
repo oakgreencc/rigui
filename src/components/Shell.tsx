@@ -1,12 +1,14 @@
 import { createContext, useContext, useEffect, useMemo, useState, type ReactNode } from "react";
 import { useAttention, useFindings, useHealth, usePrompts, useQueue, useRigs, useSource, useTerminals, useTopology, useWatchdogs } from "../api/hooks";
 import type { RigLifecycleState } from "../api/types";
-import { navigate, useRoute, type ViewId } from "../lib/router";
+import { navigate, useRoute, type CoreViewId, type ViewId } from "../lib/router";
+import { PLUGINS } from "../plugins";
+import type { NavCount, RiguiPlugin } from "../plugins/types";
 import { ago } from "../lib/format";
 
 const until = (at: number) => { const m = Math.round((at - Date.now()) / 60_000); return m <= 0 ? "due now" : m < 60 ? `in ${m}m` : `in ${Math.round(m / 60)}h`; };
 import { seatStatus, type Tone } from "../lib/status";
-import { Icon, type IconName } from "./Icon";
+import { Glyph, Icon, type IconName } from "./Icon";
 import { Lamp } from "./primitives";
 
 // ---------- Rig selection: one rig in focus, remembered per viewer ----------
@@ -31,7 +33,7 @@ export const LIFECYCLE: Record<RigLifecycleState, { tone: Tone; label: string }>
   stopped: { tone: "idle", label: "stopped" },
 };
 
-const NAV: { id: ViewId; label: string; icon: IconName }[] = [
+const NAV: { id: CoreViewId; label: string; icon: IconName }[] = [
   { id: "topology", label: "Topology", icon: "topology" },
   { id: "attention", label: "Inbox", icon: "attention" },
   { id: "backlog", label: "Backlog", icon: "backlog" },
@@ -63,7 +65,7 @@ function useCounts(rigId: string | null) {
     const live = terms.data?.filter((t) => t.activity === "working" && !t.needsInput).length;
     const prompting = terms.data?.filter((t) => t.needsInput).length ?? 0;
     const bad = findings.data?.filter((f) => f.status === "active" && f.severity !== "info").length ?? 0;
-    const c: Partial<Record<ViewId, { text: string; tone?: Tone }>> = {};
+    const c: Partial<Record<CoreViewId, NavCount>> = {};
     if (stalled) c.topology = { text: `${stalled} stalled`, tone: "danger" };
     if (waiting.ready) c.attention = { text: String(actions || "clear"), tone: actions ? "human" : undefined };
     if (active != null) c.backlog = { text: `${active} open` };
@@ -103,6 +105,17 @@ function Heartbeat() {
         ? <span className="src"><Lamp tone="warn" /><em><b>Sample data</b> · no daemon found</em></span>
         : <span className="src"><Lamp tone="ok" /><em><b>Live</b> · {location.host}</em></span>}
     </div>
+  );
+}
+
+/** A plugin's nav row: its own component, so each plugin's count hook keeps a stable place in hook order. */
+function PluginNav({ plugin, current, onGo }: { plugin: RiguiPlugin; current: boolean; onGo(): void }) {
+  const count = plugin.useCount?.();
+  return (
+    <button type="button" aria-current={current ? "page" : undefined} onClick={onGo}>
+      <Glyph d={plugin.icon} />{plugin.label}
+      {count && <span className="n" data-tone={count.tone}>{count.text}</span>}
+    </button>
   );
 }
 
@@ -154,6 +167,8 @@ export function Shell({ children }: { children: ReactNode }) {
               </button>
             </div>
           ))}
+          {PLUGINS.length > 0 && <hr />}
+          {PLUGINS.map((p) => <PluginNav key={p.id} plugin={p} current={route.view === p.id} onGo={() => go(p.id)} />)}
         </nav>
         <Heartbeat />
       </div>
